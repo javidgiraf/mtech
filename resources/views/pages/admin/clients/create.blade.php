@@ -1,0 +1,65 @@
+@extends('layouts.main')
+
+@section('content')
+<div class="pagetitle">
+    <h1>{{ __('Create Client') }}</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.clients.index') }}">{{ __('Clients') }}</a></li>
+            <li class="breadcrumb-item active">{{ __('Create') }}</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+<section class="section">
+    <div class="row">
+
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body mt-4">
+
+
+
+                    <form class="row g-3" action="{{ route('admin.clients.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="col-12">
+                            <label for="client_name" class="form-label">{{ __('Client Name') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="client_name" class="form-control @error('client_name') is-invalid @enderror" placeholder="{{ __('Client Name') }}" value="{{ old('client_name') }}">
+                            @error('client_name')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="col-12">
+                            <label for="logo" class="col-form-label">{{ __('Upload Logo') }} <span class="text-danger">*</span></label>
+                            <input class="form-control @error('logo') is-invalid @enderror" type="file" name="logo">
+                            @error('logo')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-12">
+                            <label for="website" class="col-form-label">{{ __('Website') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="website" class="form-control @error('website') is-invalid @enderror" value="{{ old('website') }}">
+                                
+                            
+                            @error('website')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary ml-2">{{ __('Save') }}</button>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</section>
+@endsection
