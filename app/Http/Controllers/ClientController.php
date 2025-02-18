@@ -65,9 +65,6 @@ class ClientController extends Controller
     {
         $this->clientService->deleteClient($client->id);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Client deleted successfully'
-        ]);
+        return redirect()->route('admin.clients.index')->with('success', 'Client deleted successfully');
     }
 }

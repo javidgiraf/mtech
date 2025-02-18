@@ -19,8 +19,21 @@
 
             <div class="card">
                 @if(count($roles) > 0)
-                <div class="card-body">
+                <div class="card-body mt-4">
+                    <form action="{{ route('admin.saveRole') }}" method="POST" id="roleForm">
+                        @csrf
+                        <div class="row mb-4">
+                            @csrf
+                            <div class="form-group col-10">
+                                <input type="text" class="form-control" name="role" placeholder="Enter Role" id="role">
+                                <span class="roleError"></span>
+                            </div>
+                            <div class="form-group col-2">
+                                <button type="submit" class="btn btn-success">Save Role</button>
+                            </div>
 
+                        </div>
+                    </form>
 
                     <div class="accordion mt-4" id="accordionExample">
                         @foreach ($roles as $key => $role)
@@ -34,8 +47,8 @@
                                 <div class="accordion-body">
                                     <form action="{{ route('admin.savePermissions') }}" method="POST">
                                         @csrf
+                                        <input type="hidden" name="role" value="{{ $role->name }}">
                                         <div class="accordion accordion-flush" id="accordionFlushExample">
-                                            <input type="hidden" name="role" value="{{ $role->name }}">
                                             @foreach($menus as $mkey => $menu)
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="flush-heading{{ $mkey+1 }}">
@@ -60,7 +73,7 @@
                                                             data-key="{{ $mkey+1 }}"
                                                             name="menuPermissions[]"
                                                             class="menuPermissions{{ $mkey }}"
-                                                            value="{{ $menuPermission->name }}">
+                                                            value="{{ strtolower($menuPermission->name) }}">
                                                         &nbsp; {{ $menuPermission->name }}
                                                     </div>
                                                 </div>
@@ -69,6 +82,7 @@
                                             @endforeach
                                         </div>
                                         <div class="col-lg-12 d-flex justify-content-end">
+                                            <a href=""></a>
                                             <button type="submit" class="btn btn-success">Save Permissions</button>
                                         </div>
                                     </form>
@@ -81,7 +95,7 @@
 
                 </div>
                 @else
-                    <span class="card-footer bg-secondary text-white"><b>{{ __('No permissions found in table') }}</b></span>
+                <span class="card-footer bg-secondary text-white"><b>{{ __('No permissions found in table') }}</b></span>
                 @endif
             </div>
 
@@ -103,6 +117,32 @@
                 $('.accordion-button').attr('collapse');
                 $('.accordion-collapse').removeAttr('show');
             }
+        });
+
+        $("#roleForm").submit(function(e){
+            e.preventDefault();
+
+            let url = $(this).attr('action');
+            let method = $(this).attr('method');
+
+            $("#role").removeClass('is-invalid');
+            $(".roleError").removeClass('invalid-feedback').text('');
+
+            $.ajax({
+                url: url,
+                type: method,
+                data: $(this).serialize(),
+                success: function(response) {
+                    console.log(response);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
+                },
+                error: function(error) {
+                    $("#role").addClass('is-invalid');
+                    $(".roleError").addClass('invalid-feedback').text(error.responseJSON.message);
+                }
+            });
         });
     });
 </script>

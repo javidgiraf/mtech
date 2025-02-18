@@ -3,10 +3,11 @@
 namespace App\Services;
 
 use App\Models\Testimonial;
+use Illuminate\Support\Str;
 
 class TestimonialService
 {
-    public function getAllTestimonials($perPage)
+    public function getAllTestimonials(int $perPage)
     {
         return Testimonial::latest()
             ->paginate($perPage);
@@ -14,21 +15,37 @@ class TestimonialService
 
     public function createTestimonial(array $data)
     {
-        return Testimonial::create($data);
-    }
+        $testimonial = new Testimonial($data);
 
-    public function editTestimonial(Testimonial $testimonial)
-    {
+        if (isset($data['photo'])) {
+            $testimonial->setPhotoAttribute($data['photo']);
+        }
+        $testimonial->slug = Str::slug($data['title'], '-');
+        $testimonial->save();
+
         return $testimonial;
     }
 
-    public function updateTestimonial(Testimonial $testimonial, array $data)
+    public function editTestimonial(int $id)
     {
-        return $testimonial->update($data);
+        return Testimonial::findOrFail($id);
     }
 
-    public function deleteTestimonial(Testimonial $testimonial)
+    public function updateTestimonial(int $id, array $data)
     {
-        return $testimonial->delete();
+        $testimonial = Testimonial::findOrFail($id);
+
+        if (request()->hasFile('photo')) {
+            $testimonial->setPhotoAttribute($data['photo']);
+        }
+        $testimonial->slug = Str::slug($data['title'], '-');
+        $testimonial->fill($data)->update();
+
+        return $testimonial;
+    }
+
+    public function deleteTestimonial(int $id)
+    {
+        return Testimonial::findOrFail($id)->delete();
     }
 }

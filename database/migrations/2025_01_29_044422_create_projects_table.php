@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('sub_title');
+            $table->string('sub_title')->nullable();
             $table->string('slug');
             $table->unsignedBigInteger('sector_id');
             $table->unsignedBigInteger('client_id');
-            $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->string('location')->nullable();
             $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');

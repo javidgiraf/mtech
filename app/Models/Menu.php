@@ -7,14 +7,15 @@ use Spatie\Permission\Models\Permission;
 
 class Menu extends Model
 {
-    const MENU_DASHBOARD = 'Dashboard';
-    const MENU_BLOGS = 'Blogs';
-    const MENU_CLIENTS = 'Clients';
-    const MENU_SECTORS = 'Sectors';
-    const MENU_SERVICES = 'Services';
-    const MENU_TESTIMONIALS = 'Testimonials';
-    const MENU_PRODUCTS = 'Products';
-    const MENU_PROJECTS = 'Projects';
+    const MENU_DASHBOARD = 'dashboard';
+    const MENU_BLOGS = 'blogs';
+    const MENU_CLIENTS = 'clients';
+    const MENU_SECTORS = 'sectors';
+    const MENU_SERVICES = 'services';
+    const MENU_TESTIMONIALS = 'testimonials';
+    const MENU_PRODUCTS = 'products';
+    const MENU_PROJECTS = 'projects';
+    const MENU_ACCESS_CONTROLS = 'access-controls';
 
     protected static function getId($name)
     {

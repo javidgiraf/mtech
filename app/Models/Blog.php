@@ -12,8 +12,8 @@ class Blog extends Model
     public function setImageAttribute($file)
     {
         if ($file) {
-            if ($this->attributes['image'] ?? false) {
-                Storage::disk('public')->delete('blogs/'. $this->attributes['image']);
+            if (!empty($this->attributes['image']) && Storage::disk('public')->exists('blogs/' . $this->attributes['image'])) {
+                Storage::disk('public')->delete('blogs/' . $this->attributes['image']);
             }
             $imageName = time() . '_' . $file->getClientOriginalName();
             $path = 'blogs';

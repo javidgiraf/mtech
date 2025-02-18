@@ -51,6 +51,7 @@ class MenuTableSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
+                
                 'name' => 'Testimonials',
                 'guard_name' => 'web',
                 'created_at' => now(),

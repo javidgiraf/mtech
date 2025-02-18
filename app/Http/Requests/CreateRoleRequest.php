@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateServiceRequest extends FormRequest
+class CreateRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,7 @@ class UpdateServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', Rule::unique('services', 'title')->ignore($this->route('service'))],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
-            'description' => ['required']
+            'role' => ['required', 'string', Rule::unique('roles', 'name')]
         ];
     }
 }

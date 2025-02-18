@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateServiceRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class CreateServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,9 @@ class CreateServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', Rule::unique('services', 'title')],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
+            'description' => ['required']
         ];
     }
 }

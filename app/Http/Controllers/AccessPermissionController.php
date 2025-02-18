@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateRoleRequest;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
@@ -19,6 +20,18 @@ class AccessPermissionController extends Controller
             'pages.admin.access-control.index',
             compact('roles', 'menus')
         );
+    }
+
+    public function saveRole(CreateRoleRequest $request)
+    {
+        $request->validated();
+        
+        Role::create(['name' => $request->role]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Role Created Successfully'
+        ], 201);
     }
 
     public function savePermissions(Request $request)

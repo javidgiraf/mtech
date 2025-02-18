@@ -12,8 +12,8 @@ class Client extends Model
     public function setLogoAttribute($file)
     {
         if ($file) {
-            if ($this->attributes['logo'] ?? false) {
-                Storage::disk('public')->delete('clients/'. $this->attributes['logo']);
+            if (!empty($this->attributes['logo']) && Storage::disk('public')->exists('clients/' . $this->attributes['logo'])) {
+                Storage::disk('public')->delete('clients/' . $this->attributes['logo']);
             }
             $logoName = time() . '_' . $file->getClientOriginalName();
             $path = 'clients';

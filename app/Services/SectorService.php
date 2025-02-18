@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Sector;
+use Illuminate\Support\Str;
 
 class SectorService
 {
@@ -19,6 +20,7 @@ class SectorService
         if (isset($data['image'])) {
             $sector->setImageAttribute($data['image']);
         }
+        $sector->slug = Str::slug($data['title'], '-');
         $sector->save();
 
         return $sector;
@@ -36,6 +38,7 @@ class SectorService
         if (request()->hasFile('image')) {
             $sector->setImageAttribute($data['image']);
         }
+        $sector->slug = Str::slug($data['title'], '-');
         $sector->fill($data)->update();
 
         return $sector;

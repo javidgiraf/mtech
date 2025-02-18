@@ -23,5 +23,7 @@ class AdminTableSeeder extends Seeder
             'remember_token' => Str::random(10),
             'password' => Hash::make('mtech@123#')
         ]);
+
+        $user->assignRole('Super Admin');
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateProductRequest extends FormRequest
+class UpdateProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,16 +23,14 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', Rule::unique('products', 'title')->ignore($this->route('product'))],
+            'title' => ['required', 'string', Rule::unique('projects', 'title')->ignore($this->route('project'))],
             'sub_title' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
+            'sector_id' => ['required', Rule::exists('sectors', 'id')],
+            'client_id' => ['required', Rule::exists('clients', 'id')],
             'description' => ['required', 'string'],
-            'productImages' => ['nullable', 'array', 'min:1'],
-            'productImages.*' => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
-            'catalogTitle' => ['nullable', 'array'],
-            'catalogTitle.*' => ['nullable', 'string'],
-            'pdfFile' => ['nullable', 'array'], 
-            'pdfFile.*' => ['nullable', 'mimes:pdf', 'max:5120'], 
+            'location' => ['required', 'string'],
+            'projectImages' => ['nullable', 'array', 'min:1'],
+            'projectImages.*' => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
         ];
     }
 }

@@ -49,9 +49,9 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('clear-cache') }}">
                             <i class="bi bi-question-circle"></i>
-                            <span>Need Help?</span>
+                            <span>{{ __('All Clear Cache') }}</span>
                         </a>
                     </li>
                     <li>

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateTestimonialRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class CreateTestimonialRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,12 @@ class CreateTestimonialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', Rule::unique('testimonials', 'title')],
+            'author_name' => ['required', 'string'],
+            'photo' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
+            'designation' => ['required', 'string'],
+            'company_name' => ['required', 'string', Rule::unique('testimonials', 'company_name')],
+            'content' => ['required', 'string']
         ];
     }
 }

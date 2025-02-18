@@ -12,9 +12,11 @@
             </ol>
         </nav>
     </div>
+    @if(auth()->user()->can('Create Client'))
     <div>
         <a href="{{ route('admin.clients.create') }}" class="btn btn-primary"><i class="bi bi-plus"></i></a>
     </div>
+    @endif
 </div><!-- End Page Title -->
 
 <section class="section">
@@ -41,12 +43,21 @@
                             <tr>
                                 <th scope="row">{{ $clients->firstItem() + $loop->index }}</th>
                                 <td>{{ $client->client_name }}</td>
-                                
+
                                 <td><img src="{{ $client->getLogoUrl() }}" width="60px" height="60px"></td>
-                                <td><a href="{{ $client->website }}">{{ $client->website }}</a></td>
+                                <td><a href="{{ $client->website }}" target="_blank">{{ $client->website }}</a></td>
                                 <td>
+                                    @if(auth()->user()->can('Edit Client'))
                                     <a href="{{ route('admin.clients.edit', $client->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                                    <a href="#" id="deleteClientForm" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                                    @endif
+
+                                    @if(auth()->user()->can('Delete Client'))
+                                    <a href="#" class="btn btn-danger btn-sm deleteClientBtn"><i class="bi bi-trash"></i></a>
+                                    <form action="{{ route('admin.clients.destroy', $client->id) }}" method="POST" id="deleteClientForm">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
@@ -56,6 +67,13 @@
                             </tr>
                             @endif
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    {{ $clients->links() }}
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
 
 
@@ -65,3 +83,27 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.deleteClientBtn', function() {
+            
+            swal({
+
+                    title: "Are you sure?",
+                    text: "You want to delete this client",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        document.querySelector('#deleteClientForm').submit();
+                    }
+
+                });
+        });
+    });
+</script>
+@endpush

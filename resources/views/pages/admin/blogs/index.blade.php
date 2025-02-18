@@ -12,9 +12,11 @@
             </ol>
         </nav>
     </div>
+    @if(auth()->user()->can('Create Blog'))
     <div>
         <a href="{{ route('admin.blogs.create') }}" class="btn btn-primary"><i class="bi bi-plus"></i></a>
     </div>
+    @endif
 </div><!-- End Page Title -->
 
 <section class="section">
@@ -44,8 +46,16 @@
                                 <td>{{ $blog->sub_title }}</td>
                                 <td><img src="{{ $blog->getImageUrl() }}" width="60px" height="60px"></td>
                                 <td>
+                                    @if(auth()->user()->can('Edit Blog'))
                                     <a href="{{ route('admin.blogs.edit', $blog->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                                    <a href="#" data-url="{{ route('admin.blogs.destroy', $blog->id) }}" data-method="DELETE" id="deleteBlogBtn" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                                    @endif
+                                    @if(auth()->user()->can('Delete Blog'))
+                                    <a href="#" class="btn btn-danger btn-sm deleteBlogBtn"><i class="bi bi-trash"></i></a>
+                                    <form action="{{ route('admin.blogs.destroy', $blog->id) }}" method="POST" id="deleteBlogForm">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
@@ -70,35 +80,24 @@
 
 @push('scripts')
 <script>
-    let deleteBlogBtn = document.querySelector('#deleteBlogBtn');
-    deleteBlogBtn.addEventListener('click', () => {
-        let url = this;
-        console.log(url);
-        let method = this.data('method');
+    $(document).ready(function() {
+        $(document).on('click', '.deleteBlogBtn', function() {
+            
+            swal({
 
-        swal({
+                    title: "Are you sure?",
+                    text: "You want to delete this blog",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        document.querySelector('#deleteBlogForm').submit();
+                    }
 
-                title: "Are you sure?",
-                text: "You want to delete this blog",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    fetch(url, {
-                        type: method,
-                        _token: "{{ csrf_token() }}"
-                    })
-                    .then((response) => {
-                        setTimeout(() => {
-                            toastr.success(response.message);
-                        }, 2000);
-                    });
-                }
-
-            });
-
+                });
+        });
     });
 </script>
 @endpush

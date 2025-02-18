@@ -64,9 +64,6 @@ class BlogController extends Controller
     {
         $this->blogService->deleteBlog($blog->id);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Blog deleted successfully'
-        ]);
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully');
     }
 }
