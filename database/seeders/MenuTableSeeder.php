@@ -27,19 +27,13 @@ class MenuTableSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'name' => 'Blogs',
+                'name' => 'Projects',
                 'guard_name' => 'web',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'name' => 'Clients',
-                'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'name' => 'Sectors',
+                'name' => 'Products',
                 'guard_name' => 'web',
                 'created_at' => now(),
                 'updated_at' => now()
@@ -51,20 +45,33 @@ class MenuTableSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
+                'name' => 'Sectors',
+                'guard_name' => 'web',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'Careers',
+                'guard_name' => 'web',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'Clients',
+                'guard_name' => 'web',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'Blogs',
+                'guard_name' => 'web',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            
+            [
                 
                 'name' => 'Testimonials',
-                'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'name' => 'Projects',
-                'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'name' => 'Products',
                 'guard_name' => 'web',
                 'created_at' => now(),
                 'updated_at' => now()

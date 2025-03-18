@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('image')->nullable();
             $table->text('description')->nullable();
+            $table->text('quality_assurance')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

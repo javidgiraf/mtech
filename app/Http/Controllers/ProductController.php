@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Models\Project;
+use App\Models\Sector;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -29,7 +31,13 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('pages.admin.products.create');
+        $sectors = Sector::all();
+        $projects = Project::all();
+
+        return view(
+            'pages.admin.products.create', 
+            compact('sectors', 'projects')
+        );
     }
 
     public function store(CreateProductRequest $request)

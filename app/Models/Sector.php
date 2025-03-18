@@ -9,6 +9,11 @@ class Sector extends Model
 {
     protected $guarded = [];
 
+    public function sectorDetails()
+    {
+        return $this->hasMany(SectorDetail::class, 'sector_id', 'id');
+    }
+
     public function setImageAttribute($file)
     {
         if ($file) {

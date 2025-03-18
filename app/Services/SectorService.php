@@ -3,7 +3,11 @@
 namespace App\Services;
 
 use App\Models\Sector;
+use App\Models\SectorDetail;
+use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use PhpParser\Error;
 
 class SectorService
 {
@@ -15,33 +19,82 @@ class SectorService
 
     public function createSector(array $data)
     {
-        $sector = new Sector($data);
+        DB::beginTransaction();
 
-        if (isset($data['image'])) {
-            $sector->setImageAttribute($data['image']);
+        try {
+            $sector = new Sector();
+            $sector->title = $data['title'];
+            $sector->sub_title = $data['sub_title'];
+            if (isset($data['image'])) {
+                $sector->setImageAttribute($data['image']);
+            }
+            $sector->slug = Str::slug($data['title'], '-');
+            $sector->description = $data['description'];
+            $sector->save();
+
+            $contents = $data['content'];
+
+            foreach ($contents as $key => $content) {
+                $sectorDetail = new SectorDetail();
+                $sectorDetail->sector_id = $sector->id;
+                $sectorDetail->description = $content;
+                $sectorDetail->image = $data['sectorImage'][$key];
+                $sectorDetail->location = $data['location'][$key];
+                $sectorDetail->save();
+            }
+
+            DB::commit();
+
+            return $sector;
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            throw new Error($e->getMessage());
         }
-        $sector->slug = Str::slug($data['title'], '-');
-        $sector->save();
-
-        return $sector;
     }
 
     public function editSector(int $id)
     {
-        return Sector::findOrFail($id);
+        return Sector::with('sectorDetails')->findOrFail($id);
     }
 
     public function updateSector(int $id, array $data)
     {
-        $sector = Sector::findOrFail($id);
+        DB::beginTransaction();
 
-        if (request()->hasFile('image')) {
-            $sector->setImageAttribute($data['image']);
+        try {
+            $sector = Sector::findOrFail(id: $id);
+            $sector->title = $data['title'];
+            $sector->sub_title = $data['sub_title'];
+            if (isset($data['image'])) {
+                $sector->setImageAttribute($data['image']);
+            }
+            $sector->slug = Str::slug($data['title'], '-');
+            $sector->description = $data['description'];
+            $sector->save();
+
+            $contents = $data['content'];
+
+            if (request()->hasFile('sectorImage')) {
+                SectorDetail::where('sector_id', $id)->delete();
+                foreach ($contents as $key => $content) {
+                    $sectorDetail = new SectorDetail();
+                    $sectorDetail->sector_id = $sector->id;
+                    $sectorDetail->description = $content;
+                    $sectorDetail->image = $data['sectorImage'][$key];
+                    $sectorDetail->location = $data['location'][$key];
+                    $sectorDetail->save();
+                }
+            }
+
+            DB::commit();
+
+            return $sector;
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            throw new Error($e->getMessage());
         }
-        $sector->slug = Str::slug($data['title'], '-');
-        $sector->fill($data)->update();
-
-        return $sector;
     }
 
     public function deleteSector(int $id)

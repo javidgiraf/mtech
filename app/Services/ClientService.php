@@ -32,14 +32,14 @@ class ClientService
 
     public function updateClient(int $id, array $data)
     {
-        $blog = Client::findOrFail($id);
+        $client = Client::findOrFail($id);
 
         if (request()->hasFile('logo')) {
-            $blog->setLogoAttribute($data['logo']);
+            $client->setLogoAttribute($data['logo']);
         }
-        $blog->fill($data)->update();
+        $client->fill($data)->update();
 
-        return $blog;
+        return $client;
     }
 
     public function deleteClient(int $id)

@@ -77,7 +77,7 @@
                         <div class="col-12">
                             <div id="dropbox" class="dropbox my-4">
                                 <p>Drag & Drop images here or click to upload</p>
-                                <input type="file" name="projectImages[]" id="fileInput" multiple accept="image/*" hidden>
+                                <input type="file" name="image" id="fileInput" accept="image/*" hidden>
                             </div>
                             <div id="preview-container" class="d-none">
                                 <h4>Image Preview</h4>
@@ -102,7 +102,14 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-12">
+                        <div class="col-3">
+                            <label for="year-of-completion" class="form-label">{{ __('Year of completion') }} <span class="text-danger">*</span></label>
+                            <input type="date" name="year_of_completion" id="year_of_completion" class="form-control @error('year_of_completion') is-invalid @enderror" placeholder="{{ __('Year of Completion') }}" value="{{ old('year_of_completion') }}">
+                            @error('year_of_completion')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-9">
                             <label for="location" class="form-label">{{ __('Location') }} <span class="text-danger">*</span></label>
                             <input type="text" name="location" id="location" class="form-control @error('location') is-invalid @enderror" placeholder="{{ __('Location') }}" value="{{ old('location') }}">
                             @error('location')
@@ -135,7 +142,7 @@
         });
 
         $("#client_id").select2({
-            placeholder: "Choose Sector",
+            placeholder: "Choose Client",
             allowClear: true
         });
 

@@ -27,4 +27,9 @@ class Client extends Model
     {
         return asset('storage/clients/'. $this->attributes['logo']);
     }
+
+    public function sector()
+    {
+        return $this->belongsTo(Sector::class, 'sector_id', 'id');
+    }
 }

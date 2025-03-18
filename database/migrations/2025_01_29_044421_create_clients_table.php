@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('client_name');
             $table->string('logo')->nullable();
+            $table->unsignedBigInteger('sector_id')->nullable();
             $table->string('website')->nullable();
+            $table->string('location')->nullable();
+            $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

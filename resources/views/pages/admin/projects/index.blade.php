@@ -33,9 +33,10 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Sub Title</th>
+                                <th scope="col">Image</th>
                                 <th scope="col">Sector</th>
                                 <th scope="col">Client</th>
-                                <th scope="col">Location</th>
+                            
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -46,9 +47,9 @@
                                 <th scope="row">{{ $projects->firstItem() + $loop->index }}</th>
                                 <td>{{ $project->title }}</td>
                                 <td>{{ $project->sub_title }}</td>
+                                <td><img src="{{ $project->getImageUrl() }}" width="60px" height="60px"></td>
                                 <td>{{ $project->sector->title }}</td>
                                 <td>{{ $project->client->client_name }}</td>
-                                <td>{{ $project->location }}</td>
                                 <td>
                                     @if(auth()->user()->can('Edit Project'))
                                     <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>

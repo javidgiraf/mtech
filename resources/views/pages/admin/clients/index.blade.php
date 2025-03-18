@@ -32,8 +32,10 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Client</th>
+                                <th scope="col">Sector</th>
                                 <th scope="col">Logo</th>
                                 <th scope="col">Website</th>
+                                <th scope="col">Location</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -43,9 +45,11 @@
                             <tr>
                                 <th scope="row">{{ $clients->firstItem() + $loop->index }}</th>
                                 <td>{{ $client->client_name }}</td>
+                                <td>{{ $client->sector->title }}</td>
 
                                 <td><img src="{{ $client->getLogoUrl() }}" width="60px" height="60px"></td>
                                 <td><a href="{{ $client->website }}" target="_blank">{{ $client->website }}</a></td>
+                                <td>{{ $client->location }}</td>
                                 <td>
                                     @if(auth()->user()->can('Edit Client'))
                                     <a href="{{ route('admin.clients.edit', $client->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
@@ -63,13 +67,13 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="5">{{ __('No records available in table') }}</td>
+                                <td colspan="7">{{ __('No records available in table') }}</td>
                             </tr>
                             @endif
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="7">
                                     {{ $clients->links() }}
                                 </td>
                             </tr>

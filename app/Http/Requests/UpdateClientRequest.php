@@ -25,7 +25,9 @@ class UpdateClientRequest extends FormRequest
         return [
             'client_name' => ['required', 'string'],
             'logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
-            'website' => ['required', Rule::unique('clients', 'website')->ignore($this->route('client'))]
+            'sector_id' => ['required', Rule::exists('sectors', 'id')],
+            'website' => ['required', Rule::unique('clients', 'website')->ignore($this->route('client'))],
+            'location' => ['required', 'string']
         ];
     }
 }

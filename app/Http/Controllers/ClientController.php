@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
+use App\Models\Project;
+use App\Models\Sector;
 use App\Services\ClientService;
 use Illuminate\Http\Request;
 
@@ -20,14 +22,17 @@ class ClientController extends Controller
     {
         $clients = $this->clientService->getAllClients(10);
 
-        return view('pages.admin.clients.index', 
+        return view(
+            'pages.admin.clients.index',
             compact('clients')
         );
     }
 
     public function create()
     {
-        return view('pages.admin.clients.create');
+        $sectors = Sector::all();
+
+        return view('pages.admin.clients.create', compact('sectors'));
     }
 
     public function store(CreateClientRequest $request)
@@ -45,16 +50,18 @@ class ClientController extends Controller
     public function edit(Client $client)
     {
         $client = $this->clientService->editClient($client->id);
+        $sectors = Sector::all();
 
-        return view('pages.admin.clients.edit', 
-            compact('client')
+        return view(
+            'pages.admin.clients.edit',
+            compact('client', 'sectors')
         );
     }
 
     public function update(UpdateClientRequest $request, Client $client)
     {
         $this->clientService->updateClient(
-            $client->id, 
+            $client->id,
             $request->all()
         );
 
@@ -63,8 +70,12 @@ class ClientController extends Controller
 
     public function destroy(Client $client)
     {
-        $this->clientService->deleteClient($client->id);
+        if (!Project::where('client_id', $client->id)->exists()) {
+            $this->clientService->deleteClient($client->id);
 
-        return redirect()->route('admin.clients.index')->with('success', 'Client deleted successfully');
+            return redirect()->route('admin.clients.index')->with('success', 'Client deleted successfully');
+        } else {
+            return redirect()->back()->with('error', 'This client is associated with a project and cannot be removed.');
+        }
     }
 }

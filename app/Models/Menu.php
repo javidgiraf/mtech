@@ -11,6 +11,7 @@ class Menu extends Model
     const MENU_BLOGS = 'blogs';
     const MENU_CLIENTS = 'clients';
     const MENU_SECTORS = 'sectors';
+    const MENU_CAREERS = 'careers';
     const MENU_SERVICES = 'services';
     const MENU_TESTIMONIALS = 'testimonials';
     const MENU_PRODUCTS = 'products';

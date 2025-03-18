@@ -78,14 +78,14 @@
                         <div class="col-12">
                             <div id="dropbox" class="dropbox my-4">
                                 <p>Drag & Drop images here or click to upload</p>
-                                <input type="file" name="projectImages[]" id="fileInput" multiple accept="image/*" hidden>
-                                @foreach($project->projectImages->pluck('image') as $image)
+                                <input type="file" name="image" id="fileInput" accept="image/*" hidden>
+                                @if($project->image)
                                 <div class="position-relative d-inline-block m-2">
-                                    <input type="hidden" name="oldImages[]" value="{{ $image }}">
-                                    <img src="{{ asset('storage/projects/'. $image) }}" class="img-thumbnail" style="max-width: 200px; max-height: 200px; object-fit: cover;">
-                                    <button onclick="$(this).parent().remove();" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" style="border-radius: 50%;">×</button> 
+                                    <img src="{{ asset('storage/projects/'. $project->image) }}" class="img-thumbnail" style="max-width: 200px; max-height: 200px; object-fit: cover;">
+                                    <button onclick="$(this).parent().remove();" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" style="border-radius: 50%;">×</button>
                                 </div>
-                                @endforeach
+                                @endif
+                                
                             </div>
                             <div id="preview-container" class="d-none">
                                 <h4>Image Preview</h4>
@@ -110,7 +110,14 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-12">
+                        <div class="col-3">
+                            <label for="year-of-completion" class="form-label">{{ __('Year of completion') }} <span class="text-danger">*</span></label>
+                            <input type="date" name="year_of_completion" id="year_of_completion" class="form-control @error('year_of_completion') is-invalid @enderror" placeholder="{{ __('Year of Completion') }}" value="{{ old('year_of_completion', date('Y-m-d', strtotime($project->year_of_completion))) }}">
+                            @error('year_of_completion')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-9">
                             <label for="location" class="form-label">{{ __('Location') }} <span class="text-danger">*</span></label>
                             <input type="text" name="location" id="location" class="form-control @error('location') is-invalid @enderror" placeholder="{{ __('Location') }}" value="{{ old('location', $project->location) }}">
                             @error('location')

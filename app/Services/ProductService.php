@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Catalog;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductVideo;
 use App\Models\Project;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -21,6 +22,7 @@ class ProductService
 
     public function createProduct(array $data)
     {
+        dd($data);
         DB::beginTransaction();
 
         try {
@@ -33,10 +35,21 @@ class ProductService
             ]);
 
             if (isset($data['productImages'])) {
-                foreach ($data['productImages'] as $image) {
+                foreach ($data['productImages'] as $key => $image) {
                     ProductImage::create([
                         'product_id' => $product->id,
+                        'title' => $data['applicationTitle'][$key],
                         'image' => $image,
+                    ]);
+                }
+            }
+
+            if (isset($data['applicationVideoTitle'])) {
+                foreach ($data['applicationVideoTitle'] as $key => $value) {
+                    ProductVideo::create([
+                        'product_id' => $product->id,
+                        'title' => $value,
+                        'url' => $data['applicationVideoUrl'][$key],
                     ]);
                 }
             }
@@ -71,7 +84,7 @@ class ProductService
         DB::beginTransaction();
 
         try {
-            $product = Product::with('productImages')->findOrFail($id);
+            $product = Product::with('productImages', 'catalogs')->findOrFail($id);
             $product->title = $data['title'];
             $product->sub_title = $data['sub_title'];
             $product->slug = Str::slug($data['title'], '-');
@@ -79,12 +92,13 @@ class ProductService
                 $product->setImageAttribute($data['image']);
             }
             $product->description = $data['description'];
+            $product->quality_assurance = $data['quality_assurance'];
             $product->update();
 
             $existingImages = $product->productImages->pluck('image')->toArray();
             foreach ($existingImages as $oldImage) {
                 if (!in_array($oldImage, request('oldImages'))) {
-                    
+
                     Storage::disk('public')->delete('productImages/' . $oldImage);
                     ProductImage::where('product_id', $product->id)->where('image', $oldImage)->delete();
                 }
@@ -101,15 +115,22 @@ class ProductService
                 }
             }
 
-
-            if (isset($data['pdfFile']) && isset($data['catalogTitle'])) {
-                Catalog::where('product_id', $product->id)->delete();
-                foreach ($data['pdfFile'] as $index => $pdf) {
-                    Catalog::create([
-                        'product_id' => $product->id,
-                        'title' => $data['catalogTitle'][$index],
-                        'pdf_file' => $pdf,
-                    ]);
+            $pdfFiles = collect($product->catalogs->pluck('pdf_file'))->toArray();
+            if (request()->hasFile('pdfFile')) {
+                if (isset($data['pdfFile']) && isset($data['catalogTitle'])) {
+                    foreach ($data['pdfFile'] as $index => $pdf) {
+                        
+                        if(!in_array($pdf, $pdfFiles)) {
+                            Catalog::where('product_id', $product->id)
+                                ->where('pdf_file', $pdf)->delete();
+                            Storage::disk('public')->delete('catalogs/' . $pdf);
+                        }
+                        Catalog::create([
+                            'product_id' => $product->id,
+                            'title' => $data['catalogTitle'][$index],
+                            'pdf_file' => $pdf,
+                        ]);
+                    }
                 }
             }
 

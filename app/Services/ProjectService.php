@@ -26,22 +26,24 @@ class ProjectService
             $project->title = $data['title'];
             $project->sub_title = $data['sub_title'];
             $project->slug = Str::slug($data['title'], '-');
+            $project->image = $data['image'];
             $project->sector_id = $data['sector_id'];
             $project->client_id = $data['client_id'];
             $project->description = $data['description'];
+            $project->year_of_completion = $data['year_of_completion'];
             $project->location = $data['location'];
             $project->save();
 
-            if (request()->hasFile('projectImages')) {
-                Log::info('Files received:', [request()->file('projectImages')]);
+            // if (request()->hasFile('projectImages')) {
+            //     Log::info('Files received:', [request()->file('projectImages')]);
 
-                foreach ($data['projectImages'] as $image) {
-                    $projectImage = new ProjectImage();
-                    $projectImage->project_id = $project->id;
-                    $projectImage->image = $image;
-                    $projectImage->save();
-                }
-            }
+            //     foreach ($data['projectImages'] as $image) {
+            //         $projectImage = new ProjectImage();
+            //         $projectImage->project_id = $project->id;
+            //         $projectImage->image = $image;
+            //         $projectImage->save();
+            //     }
+            // }
 
             DB::commit();
 
@@ -58,53 +60,29 @@ class ProjectService
     public function editProject(int $id)
     {
         return Project::with(
-            'sector',
-            'client',
-            'projectImages'
+            'sector', 'client'
         )->findOrFail($id);
     }
 
     public function updateProject(int $id, array $data)
     {
-        DB::beginTransaction();
-
         try {
-            $project = Project::with('projectImages')->findOrFail($id);
+            $project = Project::findOrFail($id);
 
             $project->update([
                 'title'       => $data['title'],
                 'sub_title'   => $data['sub_title'],
                 'slug'        => Str::slug($data['title'], '-'),
+                'image'       => $data['image'],
                 'sector_id'   => $data['sector_id'],
                 'client_id'   => $data['client_id'],
                 'description' => $data['description'],
+                'year_of_completion' => $data['year_of_completion'],
                 'location'    => $data['location'],
             ]);
 
-            $existingImages = $project->projectImages->pluck('image')->toArray();
-            foreach ($existingImages as $oldImage) {
-                if (!in_array($oldImage, request('oldImages'))) {
-                    Storage::disk('public')->delete('projects/' . $oldImage);
-                    ProjectImage::where('project_id', $project->id)->where('image', $oldImage)->delete();
-                }
-            }
-
-            if (!empty($data['projectImages']) && is_array($data['projectImages'])) {
-                Log::info('Files received:', [$data['projectImages']]);
-                foreach ($data['projectImages'] as $image) {
-
-                    ProjectImage::create([
-                        'project_id' => $project->id,
-                        'image'      => $image
-                    ]);
-                }
-            }
-
-            DB::commit();
-
             return $project;
         } catch (\Exception $e) {
-            DB::rollBack();
             Log::error('Project update failed: ' . $e->getMessage());
 
             return response()->json(['error' => 'Project update failed!'], 500);
@@ -114,7 +92,6 @@ class ProjectService
 
     public function deleteProject(int $id)
     {
-        ProjectImage::where('project_id', $id)->delete();
         Project::findOrFail($id)->delete();
 
         return true;

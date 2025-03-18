@@ -33,18 +33,30 @@
                         </div>
                         <div class="d-flex justify-content-center">
                             <div class="col-4">
-                                <div class="card">
+                                <div class="card showPhotoCard">
                                     <div class="card-body mt-3">
-                                        <img src="{{ $client->getLogoUrl() }}" class="d-block w-100">
+                                        <img src="{{ $client->getLogoUrl() }}" class="d-block w-100 imgPreview">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <label for="logo" class="col-form-label">{{ __('Upload Logo') }} <span class="text-danger">*</span></label>
-                            <input class="form-control @error('logo') is-invalid @enderror" type="file" name="logo">
+                            <input class="form-control photoInput @error('logo') is-invalid @enderror" type="file" name="logo">
                             @error('logo')
                                 <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-12">
+                            <label for="sector" class="form-label">{{ __(key: 'Choose Sector') }}</label>
+                            <select name="sector_id" id="sector_id" class="form-control @error('sector_id') is-invalid @enderror">
+                                <option value="">Choose Sector</option>
+                                @foreach($sectors as $sector)
+                                <option {{ old('sector_id', $client->sector_id) == $sector->id ? 'selected' : '' }} value="{{ $sector->id }}">{{ $sector->title }}</option>
+                                @endforeach
+                            </select>
+                            @error('sector_id')
+                            <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-12">
@@ -53,6 +65,15 @@
                                 
                             
                             @error('website')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-12">
+                            <label for="location" class="col-form-label">{{ __('Location') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="location" class="form-control @error('location') is-invalid @enderror" value="{{ old('location', $client->location) }}">
+                                
+                            
+                            @error('location')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
@@ -72,3 +93,29 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+
+        $("#sector_id").select2({
+            placeholder: 'Choose Sector',
+            allowClear: true
+        });
+
+        $('.showPhotoCard').addClass('d-none');
+        $(document).on('change', '.photoInput', function(event) {
+            var file = event.target.files[0];
+
+            if (file) {
+                $('.showPhotoCard').removeClass('d-none');
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $(".imgPreview").attr("src", e.target.result).show();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+@endpush

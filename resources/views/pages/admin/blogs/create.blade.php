@@ -27,18 +27,27 @@
                             <label for="title" class="form-label">{{ __('Title') }} <span class="text-danger">*</span></label>
                             <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="{{ __('Title') }}" value="{{ old('title') }}">
                             @error('title')
-                                <span class="invalid-feedback">{{ $message }}</span>
+                            <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-12">
                             <label for="sub_title" class="form-label">{{ __(key: 'Sub Title') }}</label>
                             <input type="text" name="sub_title" class="form-control" placeholder="{{ __('Sub Title') }}" value="{{ old('sub_title') }}">
                         </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="col-5">
+                                <div class="card showImageCard d-none">
+                                    <div class="card-body mt-3">
+                                        <img class="d-block w-100 imgPreview">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-12">
                             <label for="image" class="col-form-label">{{ __('Upload Image') }} <span class="text-danger">*</span></label>
-                            <input class="form-control @error('image') is-invalid @enderror" type="file" name="image">
+                            <input class="form-control imgInput @error('image') is-invalid @enderror" type="file" name="image">
                             @error('image')
-                                <span class="invalid-feedback">{{ $message }}</span>
+                            <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-12">
@@ -47,7 +56,7 @@
                                 {!! old('description') !!}
                             </textarea>
                             @error('description')
-                                <span class="invalid-feedback">{{ $message }}</span>
+                            <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -66,3 +75,23 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('.showImageCard').addClass('d-none');
+        $(document).on('change', '.imgInput', function(event) {
+            var file = event.target.files[0];
+
+            if (file) {
+                $('.showImageCard').removeClass('d-none');
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $(".imgPreview").attr("src", e.target.result).show();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+@endpush

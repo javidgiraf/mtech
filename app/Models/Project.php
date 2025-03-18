@@ -23,4 +23,25 @@ class Project extends Model
     {
         return $this->hasMany(ProjectImage::class, 'project_id', 'id');
     }
+
+    public function setImageAttribute($file)
+    {
+        if ($file) {
+            if (!empty($this->attributes['image']) && Storage::disk('public')->exists('projects/' . $this->attributes['image'])) {
+                Storage::disk('public')->delete('projects/' . $this->attributes['image']);
+            }
+            $imageName = time() . '_' . $file->getClientOriginalName();
+            $path = 'projects';
+            $file->storeAs($path, $imageName, 'public');
+
+            $this->attributes['image'] = $imageName;
+        }
+    }
+
+    public function getImageUrl()
+    {
+        return ($this->attributes['image']) ? 
+            asset('storage/projects/'. $this->attributes['image'])
+            : asset('assets/img/empty-image.jpg');
+    }
 }

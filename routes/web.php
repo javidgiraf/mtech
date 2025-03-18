@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccessPermissionController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CareerController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
@@ -40,5 +41,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'as' => 'admin.'], fu
     Route::resource('sectors', SectorController::class);
     Route::resource('products', ProductController::class);
     Route::resource('projects', ProjectController::class);
+    Route::resource('careers', CareerController::class);
 });
 

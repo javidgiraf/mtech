@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSectorRequest;
 use App\Http\Requests\UpdateSectorRequest;
+use App\Models\Project;
 use App\Models\Sector;
 use App\Services\SectorService;
 use Illuminate\Http\Request;
@@ -62,11 +63,13 @@ class SectorController extends Controller
 
     public function destroy(Sector $sector)
     {
-        $this->sectorService->deleteSector($sector->id);
+        if(!Project::where('sector_id', $sector->id)->exists()) {
+            $this->sectorService->deleteSector($sector->id);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Sector deleted successfully'
-        ]);
+            return redirect()->route('admin.sectors.index')->with('success', 'Sector deleted successfully');
+        }
+        else {
+            return redirect()->back()->with('error', 'This sector is associated with a project and cannot be removed.');
+        }
     }
 }

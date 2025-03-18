@@ -28,9 +28,9 @@ class UpdateProjectRequest extends FormRequest
             'sector_id' => ['required', Rule::exists('sectors', 'id')],
             'client_id' => ['required', Rule::exists('clients', 'id')],
             'description' => ['required', 'string'],
+            'year_of_completion' => ['required'],
             'location' => ['required', 'string'],
-            'projectImages' => ['nullable', 'array', 'min:1'],
-            'projectImages.*' => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
         ];
     }
 }
