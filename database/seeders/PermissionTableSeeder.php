@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionTableSeeder extends Seeder
 {
@@ -21,214 +22,158 @@ class PermissionTableSeeder extends Seeder
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
+        $superAdmin = Role::where('name', 'Super Admin')->first();
+
         $permissions = [
             [
                 'name' => 'View Dashboard',
                 'menu_id' => Menu::getId(Menu::MENU_DASHBOARD),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Projects List',
                 'menu_id' => Menu::getId(Menu::MENU_PROJECTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Create Project',
                 'menu_id' => Menu::getId(Menu::MENU_PROJECTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Edit Project',
                 'menu_id' => Menu::getId(Menu::MENU_PROJECTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Delete Project',
                 'menu_id' => Menu::getId(Menu::MENU_PROJECTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Products List',
                 'menu_id' => Menu::getId(Menu::MENU_PRODUCTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Create Product',
                 'menu_id' => Menu::getId(Menu::MENU_PRODUCTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Edit Product',
                 'menu_id' => Menu::getId(Menu::MENU_PRODUCTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Delete Product',
                 'menu_id' => Menu::getId(Menu::MENU_PRODUCTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             
             [
                 'name' => 'Services List',
                 'menu_id' => Menu::getId(Menu::MENU_SERVICES),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Create Service',
                 'menu_id' => Menu::getId(Menu::MENU_SERVICES),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Edit Service',
                 'menu_id' => Menu::getId(Menu::MENU_SERVICES),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Delete Service',
                 'menu_id' => Menu::getId(Menu::MENU_SERVICES),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
 
             [
                 'name' => 'Sectors List',
                 'menu_id' => Menu::getId(Menu::MENU_SECTORS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Create Sector',
                 'menu_id' => Menu::getId(Menu::MENU_SECTORS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Edit Sector',
                 'menu_id' => Menu::getId(Menu::MENU_SECTORS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Delete Sector',
                 'menu_id' => Menu::getId(Menu::MENU_SECTORS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
 
             [
                 'name' => 'Careers List',
                 'menu_id' => Menu::getId(Menu::MENU_CAREERS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Create Career',
                 'menu_id' => Menu::getId(Menu::MENU_CAREERS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Edit Career',
                 'menu_id' => Menu::getId(Menu::MENU_CAREERS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Delete Career',
                 'menu_id' => Menu::getId(Menu::MENU_CAREERS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
 
             [
                 'name' => 'Clients List',
                 'menu_id' => Menu::getId(Menu::MENU_CLIENTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Create Client',
                 'menu_id' => Menu::getId(Menu::MENU_CLIENTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Edit Client',
                 'menu_id' => Menu::getId(Menu::MENU_CLIENTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Delete Client',
                 'menu_id' => Menu::getId(Menu::MENU_CLIENTS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
 
             [
                 'name' => 'Blogs List',
                 'menu_id' => Menu::getId(Menu::MENU_BLOGS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Create Blog',
                 'menu_id' => Menu::getId(Menu::MENU_BLOGS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Edit Blog',
                 'menu_id' => Menu::getId(Menu::MENU_BLOGS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Delete Blog',
                 'menu_id' => Menu::getId(Menu::MENU_BLOGS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
 
 
@@ -236,32 +181,56 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'Testimonials List',
                 'menu_id' => Menu::getId(Menu::MENU_TESTIMONIALS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Create Testimonial',
                 'menu_id' => Menu::getId(Menu::MENU_TESTIMONIALS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Edit Testimonial',
                 'menu_id' => Menu::getId(Menu::MENU_TESTIMONIALS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
             ],
             [
                 'name' => 'Delete Testimonial',
                 'menu_id' => Menu::getId(Menu::MENU_TESTIMONIALS),
                 'guard_name' => 'web',
-                'created_at' => now(),
-                'updated_at' => now()
+            ],
+
+            [
+                'name' => 'Faqs List',
+                'menu_id' => Menu::getId(Menu::MENU_FAQS),
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'Create Faq',
+                'menu_id' => Menu::getId(Menu::MENU_FAQS),
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'Edit Faq',
+                'menu_id' => Menu::getId(Menu::MENU_FAQS),
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'Delete Faq',
+                'menu_id' => Menu::getId(Menu::MENU_FAQS),
+                'guard_name' => 'web',
             ],
         ];
 
-        DB::table('permissions')->insert($permissions);
+
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate([
+                'name' => $permission['name'],
+                'menu_id' => $permission['menu_id'],
+                'guard_name' => $permission['guard_name']
+            ]);
+        }
+
+        if ($superAdmin) {
+            $superAdmin->givePermissionTo(Permission::all());
+        }
     }
 }

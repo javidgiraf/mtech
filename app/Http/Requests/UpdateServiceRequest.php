@@ -24,8 +24,28 @@ class UpdateServiceRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', Rule::unique('services', 'title')->ignore($this->route('service'))],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
-            'description' => ['required']
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp'],
+            'content' => ['required'],
+            'description' => ['required'],
+            'applicationVideoTitle' => ['required', 'array'],
+            'applicationVideoTitle.*' => ['required', 'string'],
+            'applicationVideoUrl' => ['required', 'array'],
+            'applicationVideoUrl.*' => ['required', 'string', 'regex:/^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]+$/'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'applicationVideoTitle.required' => 'At least one application video title is required.',
+            'applicationVideoTitle.array' => 'The application video title field must be an array.',
+            'applicationVideoTitle.*.required' => 'Each application video title is required.',
+            'applicationVideoTitle.*.string' => 'Each application video title must be a string.',
+
+            'applicationVideoUrl.required' => 'At least one application video URL is required.',
+            'applicationVideoUrl.array' => 'The application video URL field must be an array.',
+            'applicationVideoUrl.*.required' => 'Each application video URL is required.',
+            'applicationVideoUrl.*.string' => 'Each application video URL must be a string.',
         ];
     }
 }

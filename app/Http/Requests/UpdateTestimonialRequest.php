@@ -23,11 +23,8 @@ class UpdateTestimonialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', Rule::unique('testimonials', 'title')->ignore($this->route('testimonial'))],
             'author_name' => ['required', 'string'],
-            'photo' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
-            'designation' => ['required', 'string'],
-            'company_name' => ['required', Rule::unique('testimonials', 'company_name')->ignore($this->route('testimonial'))],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp'],
             'content' => ['required', 'string']
         ];
     }

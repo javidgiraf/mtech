@@ -19,7 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('sector_id');
             $table->unsignedBigInteger('client_id');
             $table->string('image')->nullable();
-            $table->text('description')->nullable();
+            $table->text('content')->nullable();
+            $table->longText('description')->nullable();
             $table->string('location')->nullable();
             $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');

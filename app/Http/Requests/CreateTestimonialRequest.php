@@ -23,11 +23,8 @@ class CreateTestimonialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', Rule::unique('testimonials', 'title')],
             'author_name' => ['required', 'string'],
-            'photo' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
-            'designation' => ['required', 'string'],
-            'company_name' => ['required', 'string', Rule::unique('testimonials', 'company_name')],
+            'photo' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,webp'],
             'content' => ['required', 'string']
         ];
     }

@@ -32,7 +32,6 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Title</th>
-                                <th scope="col">SubTitle</th>
                                 <th scope="col">Image</th>
                                 <th scope="col"></th>
                             </tr>
@@ -43,7 +42,6 @@
                             <tr>
                                 <th scope="row">{{ $sectors->firstItem() + $loop->index }}</th>
                                 <td>{{ $sector->title }}</td>
-                                <td>{{ $sector->sub_title }}</td>
                                 <td><img src="{{ $sector->getImageUrl() }}" width="60px" height="60px"></td>
                                 <td>
                                     @if(auth()->user()->can('Edit Sector'))
@@ -62,13 +60,13 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="5">{{ __('No records available in table') }}</td>
+                                <td colspan="4">{{ __('No records available in table') }}</td>
                             </tr>
                             @endif
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="4">
                                     {{ $sectors->links() }}
                                 </td>
                             </tr>

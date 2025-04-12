@@ -15,15 +15,22 @@ class Product extends Model
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
 
-    public function catalogs()
+    public function productVideos()
     {
-        return $this->hasMany(Catalog::class, 'product_id', 'id');
+        return $this->hasMany(ProductVideo::class, 'product_id', 'id');
     }
 
+    public function productSectors()
+    {
+        return $this->hasMany(ProductSector::class, 'product_id', 'id');
+    }  
 
     public function setImageAttribute($file)
     {
         if ($file) {
+            if (!empty($this->attributes['image']) && Storage::disk('public')->exists('products/' . $this->attributes['image'])) {
+                Storage::disk('public')->delete('products/' . $this->attributes['image']);
+            }
             $imageName = time() . '_' . $file->getClientOriginalName();
             $path = 'products';
             $file->storeAs($path, $imageName, 'public');

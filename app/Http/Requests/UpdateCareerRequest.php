@@ -24,9 +24,10 @@ class UpdateCareerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'position' => ['required', 'string', Rule::unique('careers', 'position')->ignore($this->route('career'))],
+            'position' => ['required', 'string'],
             'discipline' => ['required', 'string'],
             'job_type' => ['required', Rule::in([Career::JOBTYPE_PARTTIME, Career::JOBTYPE_FULLTIME])],
+            'job_code' => ['required', Rule::unique('careers', 'job_code')->ignore($this->route('career'))],
             'location' => ['required', 'string']
         ];
     }

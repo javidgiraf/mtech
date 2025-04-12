@@ -31,11 +31,12 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Title</th>
+                                <!-- <th scope="col">Title</th> -->
                                 <th scope="col">Author</th>
                                 <th scope="col">Photo</th>
-                                <th scope="col">Designation</th>
-                                <th scope="col">Company</th>
+                                <!-- <th scope="col">Designation</th>
+                                <th scope="col">Company</th> -->
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,15 +44,16 @@
                             @foreach($testimonials as $testimonial)
                             <tr>
                                 <th scope="row">{{ $testimonials->firstItem() + $loop->index }}</th>
-                                <td>{{ $testimonial->title }}</td>
+                                <!-- <td>{{ $testimonial->title }}</td> -->
                                 <td>{{ $testimonial->author_name }}</td>
-                                <td>{{ $testimonial->photo }}</td>
+                                <!-- <td>{{ $testimonial->designation }}</td>
+                                <td>{{ $testimonial->company_name }}</td> -->
                                 <td><img src="{{ $testimonial->getPhotoUrl() }}" width="60px" height="60px"></td>
                                 <td>
-                                    @if(auth()->user()->can('Edit Service'))
+                                    @if(auth()->user()->can('Edit Testimonial'))
                                     <a href="{{ route('admin.testimonials.edit', $testimonial->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                                     @endif
-                                    @if(auth()->user()->can('Delete Service'))
+                                    @if(auth()->user()->can('Delete Testimonial'))
                                     <a href="#" class="btn btn-danger btn-sm deleteTestimonialBtn"><i class="bi bi-trash"></i></a>
                                     <form action="{{ route('admin.testimonials.destroy', $testimonial->id) }}" method="POST" id="deleteTestimonialForm">
                                         @csrf
@@ -63,11 +65,11 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="6">{{ __('No records available in table') }}</td>
+                                <td colspan="4">{{ __('No records available in table') }}</td>
                             </tr>
                             @endif
                         </tbody>
-                        <tfoot colspan="6">
+                        <tfoot colspan="4">
                             {{ $testimonials->links() }}
                         </tfoot>
                     </table>

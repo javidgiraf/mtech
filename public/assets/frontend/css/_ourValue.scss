@@ -1,0 +1,122 @@
+.our-value-area {
+
+    padding: 70px 0;
+
+    @include respond-below(sm) {
+        padding: 0 0 50px 0;
+    }
+
+    .section-title {
+        text-align: left;
+        font-weight: 400;
+        margin-bottom: 30px;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+    }
+
+    // tab start
+
+    .tab {
+        width: 100%;
+        height: auto;
+        display: flex;
+
+        @include respond-below(sm) {
+            display: block;
+        }
+    }
+
+    .tab-menu {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: center;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+        transition: all 0.3s ease;
+
+        @include respond-below(sm) {
+            align-items: flex-start;
+            margin: 0 0 20px 0;
+        }
+    }
+
+    .tab-menu-link {
+        position: relative;
+        overflow: hidden;
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: inherit;
+        cursor: pointer;
+        width: 300px;
+        height: auto;
+        padding: 10px 15px;
+        color: #fff;
+        transition: all 0.3s ease;
+        background: none;
+        text-align: left;
+        border: none;
+
+        @include respond-below(sm) {
+            padding: 5px 15px;
+        }
+    }
+
+    .tab-menu-link::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        z-index: 2;
+    }
+
+    .tab-menu-link.is-active {
+        bottom: 0px;
+        z-index: 0;
+        overflow: hidden;
+        color: $brand-color;
+    }
+
+    .tab-bar {
+        padding: 30px 30px;
+        overflow: hidden;
+        background: #ffffff;
+        border-radius: 20px;
+
+        @include respond-below(sm) {
+            padding: 20px;
+            margin: 0 15px;
+            border-radius: 10px;
+        }
+    }
+
+    .tab-bar-content {
+        display: none;
+        width: 100%;
+        min-height: 10rem;
+        transition: all 0.3s ease;
+
+        h5 {
+            margin: 20px 0 0 0;
+        }
+
+        .paragraph {
+            margin: 0;
+            line-height: 28px;
+            color: #333;
+        }
+
+    }
+
+    .tab-bar-content.is-active {
+        display: block;
+    }
+
+    // tab end
+
+}

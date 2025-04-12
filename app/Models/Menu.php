@@ -16,6 +16,7 @@ class Menu extends Model
     const MENU_TESTIMONIALS = 'testimonials';
     const MENU_PRODUCTS = 'products';
     const MENU_PROJECTS = 'projects';
+    const MENU_FAQS = 'faqs';
     const MENU_ACCESS_CONTROLS = 'access-controls';
 
     protected static function getId($name)

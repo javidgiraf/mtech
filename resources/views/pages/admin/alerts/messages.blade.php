@@ -15,5 +15,5 @@
 <script>
     setTimeout(() => {
         document.querySelector('.alertMessage').remove();
-    }, 2000);
+    }, 4000);
 </script>

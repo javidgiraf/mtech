@@ -15,12 +15,13 @@ class TestimonialService
 
     public function createTestimonial(array $data)
     {
-        $testimonial = new Testimonial($data);
-
+        $testimonial = new Testimonial();
+        $testimonial->author_name = $data['author_name'];
         if (isset($data['photo'])) {
             $testimonial->setPhotoAttribute($data['photo']);
         }
-        $testimonial->slug = Str::slug($data['title'], '-');
+        $testimonial->slug = Str::slug($data['author_name'], '-');
+        $testimonial->content = $data['content'];
         $testimonial->save();
 
         return $testimonial;
@@ -34,12 +35,13 @@ class TestimonialService
     public function updateTestimonial(int $id, array $data)
     {
         $testimonial = Testimonial::findOrFail($id);
-
-        if (request()->hasFile('photo')) {
+        $testimonial->author_name = $data['author_name'];
+        if (isset($data['photo'])) {
             $testimonial->setPhotoAttribute($data['photo']);
         }
-        $testimonial->slug = Str::slug($data['title'], '-');
-        $testimonial->fill($data)->update();
+        $testimonial->slug = Str::slug($data['author_name'], '-');
+        $testimonial->content = $data['content'];
+        $testimonial->update();
 
         return $testimonial;
     }

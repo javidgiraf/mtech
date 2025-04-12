@@ -24,9 +24,10 @@ class CreateCareerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'position' => ['required', 'string', Rule::unique('careers', 'position')],
+            'position' => ['required', 'string'],
             'discipline' => ['required', 'string'],
             'job_type' => ['required', Rule::in([Career::JOBTYPE_PARTTIME, Career::JOBTYPE_FULLTIME])],
+            'job_code' => ['required', Rule::unique('careers', 'job_code')],
             'location' => ['required', 'string']
         ];
     }

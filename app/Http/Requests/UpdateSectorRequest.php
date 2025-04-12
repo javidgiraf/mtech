@@ -24,14 +24,9 @@ class UpdateSectorRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', Rule::unique('sectors', 'title')->ignore($this->route('sector'))],
+            'sub_title' => ['nullable'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
             'description' => ['required', 'string'],
-            'content' => ['required', 'array'],
-            'content.*' => ['required', 'string'],
-            'sectorImage' => ['nullable', 'array', 'min:1'],
-            'sectorImage.*' => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
-            'location' => ['required', 'array'],
-            'location.*' => ['required', 'string']
         ];
     }
 }

@@ -23,7 +23,7 @@ class UpdateBlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', Rule::unique('blogs', 'title')->ignore($this->route('blog'))],
+            'title' => ['required', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
             'description' => ['required']
         ];

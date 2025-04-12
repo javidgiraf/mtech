@@ -26,7 +26,7 @@ class CreateClientRequest extends FormRequest
             'client_name' => ['required', 'string'],
             'logo' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
             'sector_id' => ['required', Rule::exists('sectors', 'id')],
-            'website' => ['required', Rule::unique('clients', 'website')],
+            'website' => ['nullable', Rule::unique('clients', 'website')],
             'location' => ['required', 'string']
         ];
     }

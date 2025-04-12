@@ -9,6 +9,16 @@ class Service extends Model
 {
     protected $guarded = [];
 
+    public function serviceImages()
+    {
+        return $this->hasMany(ServiceImage::class, 'service_id', 'id');
+    }
+
+    public function serviceVideos()
+    {
+        return $this->hasMany(ServiceVideo::class, 'service_id', 'id');
+    }
+
     public function setImageAttribute($file)
     {
         if ($file) {

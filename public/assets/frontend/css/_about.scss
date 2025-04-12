@@ -1,0 +1,254 @@
+.about-area {
+    padding: 120px 0;
+
+    @include respond-below(sm) {
+        padding: 40px 0;
+    }
+
+    .about-image {
+        img {
+            width: 50%;
+            border-radius: 10px;
+
+            @include respond-below(xl) {
+                width: 50%;
+            }
+
+            @include respond-below(lg) {
+                width: 50%;
+            }
+
+            @include respond-below(md) {
+                width: 50%;
+            }
+
+            @include respond-below(sm) {
+                width: 100%;
+                margin: 0 0 30px 0;
+            }
+        }
+
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 20px;
+
+        @include respond-below(sm) {
+            justify-content: flex-end;
+        }
+    }
+
+    .about-content {
+        padding: 0 0 0 50px;
+
+        @include respond-below(sm) {
+            padding: 0 20px 0 20px;
+        }
+
+        img {
+            width: 200px;
+            display: block;
+            margin: 0 0 30px 0;
+            border-radius: 4px;
+        }
+
+        h2 {
+            font-size: 5rem;
+            color: $white;
+
+            @include respond-below(lg) {
+                font-size: 3rem;
+            }
+        }
+
+        p {
+            color: #eeeeee;
+            padding: 15px 0;
+
+            @include respond-below(lg) {
+                padding: 0px 0 10px 0;
+            }
+        }
+
+
+    }
+}
+
+// ********************* ABOUT PAGE START ******************//
+
+.hero-area {
+    margin: 40px 100px 60px 100px;
+    width: auto;
+    object-fit: contain;
+
+    @include respond-below(lg) {
+        margin: 40px 60px 60px 60px;
+    }
+
+    @include respond-below(md) {
+        margin: 40px 30px 60px 30px;
+    }
+
+    @include respond-below(sm) {
+        margin: 0px 0px 60px 0px;
+    }
+
+    .hero-video {
+        width: 100%;
+        border-radius: 40px;
+        height: 80vh;
+        object-fit: cover;
+
+        @include respond-below(lg) {
+            height: 70vh;
+        }
+
+        @include respond-below(md) {
+            height: 60vh;
+        }
+
+        @include respond-below(sm) {
+            height: 50vh;
+            border-radius: 0px;
+        }
+    }
+
+    &.serv-details {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        margin: 150px 0 70px 0;
+
+        @include respond-below(md) {
+            margin: 110px 0 40px 0;
+        }
+
+        @include respond-below(sm) {
+            margin: 110px 0 40px 0;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 40px;
+            height: 670px;
+            object-fit: cover;
+
+            @include respond-below(lg) {
+                height: 450px;
+            }
+
+            @include respond-below(md) {
+                height: 350px;
+                border-radius: 15px;
+            }
+
+            @include respond-below(sm) {
+                height: 190px;
+                border-radius: 10px;
+            }
+
+        }
+
+        .serv-banner {
+            position: relative;
+
+            &::after {
+                position: absolute;
+                content: '';
+                top: 0;
+                bottom: 0;
+                left: 0;
+                background: #3333334a;
+                width: 100%;
+                height: 100%;
+                border-radius: 40px;
+
+                @include respond-below(md) {
+                    border-radius: 15px;
+                }
+
+                @include respond-below(sm) {
+                    border-radius: 10px;
+                }
+            }
+
+            h4 {
+                position: absolute;
+                bottom: 30px;
+                text-align: center;
+                width: 100%;
+                z-index: 1;
+                color: #fff;
+                font-weight: 300;
+            }
+        }
+    }
+}
+
+// ********************* ABOUT PAGE END ******************//
+
+
+// ********************* WHO WE ARE AREA START ******************//
+
+.who-we-are-area {
+    padding: 50px 0;
+
+    .who-we-are-pic {
+        @include respond-below(md) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        img {
+            max-width: 100%;
+
+            @include respond-below(md) {}
+        }
+    }
+
+    .who-we-are-content {
+        background: #fff;
+        padding: 40px 60px;
+        border-radius: 30px;
+
+        @include respond-below(sm) {
+            padding: 10px 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #333;
+            line-height: 26px;
+        }
+    }
+
+}
+
+// ********************* WHO WE ARE AREA END ******************//
+
+
+// media query area start
+@media only screen and (min-width : 1200px) and (max-width : 1280px) {
+    .about-area .about-image img {
+        width: 300px;
+    }
+
+    .hero-area.serv-details img {
+        height: 500px;
+    }
+
+    .hero-area.serv-details .serv-banner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+}
+
+// media query area end

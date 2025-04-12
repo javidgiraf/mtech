@@ -1,5 +1,19 @@
 @extends('layouts.main')
+@push('styles')
+<style>
+    .dropbox {
+        border: 2px dashed #007bff;
+        border-radius: 10px;
+        padding: 40px;
+        text-align: center;
+        cursor: pointer;
+    }
 
+    .dropbox.dragover {
+        background-color: #f8f9fa;
+    }
+</style>
+@endpush
 @section('content')
 <div class="pagetitle">
     <h1>{{ __('Edit Client') }}</h1>
@@ -31,7 +45,7 @@
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="d-flex justify-content-center">
+                        <!-- <div class="d-flex justify-content-center">
                             <div class="col-4">
                                 <div class="card showPhotoCard">
                                     <div class="card-body mt-3">
@@ -39,10 +53,28 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-12">
-                            <label for="logo" class="col-form-label">{{ __('Upload Logo') }} <span class="text-danger">*</span></label>
-                            <input class="form-control photoInput @error('logo') is-invalid @enderror" type="file" name="logo">
+                            <div id="dropbox" class="dropbox my-4">
+                                <p>Drag & Drop images here or click to upload</p>
+                                <input type="file" class="@error('logo') is-invalid @enderror" name="logo" id="fileInput" accept="image/*" hidden>
+                                <div class="position-relative d-inline-block m-2">
+                                    <img src="{{ $client->getLogoUrl() }}" class="img-thumbnail" style="max-width: 300px; max-height: 300px; object-fit: cover;">
+                                    <button onclick="$(this).parent().remove();" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" style="border-radius: 50%;">×</button>
+                                </div>
+                            </div>
+                            <div id="preview-container" class="d-none">
+                                <h4>Image Preview</h4>
+                                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner"></div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon"></span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon"></span>
+                                    </button>
+                                </div>
+                            </div>
                             @error('logo')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
@@ -116,6 +148,86 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        const dropbox = document.getElementById('dropbox');
+        const fileInput = document.getElementById('fileInput');
+
+        dropbox.addEventListener('click', () => fileInput.click());
+
+        dropbox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropbox.classList.add('dragover');
+        });
+
+        dropbox.addEventListener('dragleave', () => dropbox.classList.remove('dragover'));
+
+        dropbox.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropbox.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+        let uploadedFiles = new DataTransfer();
+
+        function handleFiles(files) {
+            Array.from(files).forEach((file, index) => {
+                if (!file.type.startsWith('image/')) {
+                    alert('Only image files are allowed!');
+                    return;
+                }
+
+                uploadedFiles.items.add(file);
+
+                const imgWrapper = document.createElement('div');
+                imgWrapper.className = 'position-relative d-inline-block m-2';
+
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.className = "img-thumbnail";
+                img.style.maxWidth = "300px";
+                img.style.maxHeight = "300px";
+                img.style.objectFit = "cover";
+
+                const removeBtn = document.createElement('button');
+                removeBtn.innerHTML = '&times;';
+                removeBtn.className = 'btn btn-danger btn-sm position-absolute top-0 end-0 m-1';
+                removeBtn.style.borderRadius = '50%';
+
+                // Remove image on click
+                removeBtn.onclick = (e) => {
+                    e.preventDefault();
+                    removeFile(index, imgWrapper);
+                };
+
+                imgWrapper.appendChild(img);
+                imgWrapper.appendChild(removeBtn);
+                dropbox.appendChild(imgWrapper);
+            });
+
+            // Update file input with selected files
+            fileInput.files = uploadedFiles.files;
+        }
+
+        function removeFile(index, imgWrapper) {
+            const newDataTransfer = new DataTransfer();
+
+            Array.from(uploadedFiles.files).forEach((file, i) => {
+                if (i !== index) {
+                    newDataTransfer.items.add(file);
+                }
+            });
+
+            uploadedFiles = newDataTransfer;
+            fileInput.files = uploadedFiles.files;
+
+            imgWrapper.remove();
+
+            if (uploadedFiles.files.length === 0) {
+                dropbox.innerHTML = `<p>Drag & Drop images here or click to upload</p>`;
+            }
+        }
     });
 </script>
 @endpush

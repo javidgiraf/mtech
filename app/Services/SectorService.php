@@ -19,8 +19,6 @@ class SectorService
 
     public function createSector(array $data)
     {
-        DB::beginTransaction();
-
         try {
             $sector = new Sector();
             $sector->title = $data['title'];
@@ -32,22 +30,8 @@ class SectorService
             $sector->description = $data['description'];
             $sector->save();
 
-            $contents = $data['content'];
-
-            foreach ($contents as $key => $content) {
-                $sectorDetail = new SectorDetail();
-                $sectorDetail->sector_id = $sector->id;
-                $sectorDetail->description = $content;
-                $sectorDetail->image = $data['sectorImage'][$key];
-                $sectorDetail->location = $data['location'][$key];
-                $sectorDetail->save();
-            }
-
-            DB::commit();
-
             return $sector;
         } catch (Exception $e) {
-            DB::rollBack();
 
             throw new Error($e->getMessage());
         }
@@ -55,12 +39,11 @@ class SectorService
 
     public function editSector(int $id)
     {
-        return Sector::with('sectorDetails')->findOrFail($id);
+        return Sector::findOrFail($id);
     }
 
     public function updateSector(int $id, array $data)
     {
-        DB::beginTransaction();
 
         try {
             $sector = Sector::findOrFail(id: $id);
@@ -73,25 +56,8 @@ class SectorService
             $sector->description = $data['description'];
             $sector->save();
 
-            $contents = $data['content'];
-
-            if (request()->hasFile('sectorImage')) {
-                SectorDetail::where('sector_id', $id)->delete();
-                foreach ($contents as $key => $content) {
-                    $sectorDetail = new SectorDetail();
-                    $sectorDetail->sector_id = $sector->id;
-                    $sectorDetail->description = $content;
-                    $sectorDetail->image = $data['sectorImage'][$key];
-                    $sectorDetail->location = $data['location'][$key];
-                    $sectorDetail->save();
-                }
-            }
-
-            DB::commit();
-
             return $sector;
         } catch (Exception $e) {
-            DB::rollBack();
 
             throw new Error($e->getMessage());
         }
@@ -99,7 +65,6 @@ class SectorService
 
     public function deleteSector(int $id)
     {
-        return Sector::findOrFail($id)
-            ->delete();
+        return Sector::findOrFail($id)->delete();
     }
 }

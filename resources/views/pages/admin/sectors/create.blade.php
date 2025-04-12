@@ -44,7 +44,10 @@
                         </div>
                         <div class="col-12">
                             <label for="sub_title" class="form-label">{{ __(key: 'Sub Title') }}</label>
-                            <input type="text" name="sub_title" class="form-control" placeholder="{{ __('Sub Title') }}" value="{{ old('sub_title') }}">
+                            <input type="text" name="sub_title" class="form-control @error('sub_title') is-invalid @enderror" placeholder="{{ __('Sub Title') }}" value="{{ old('sub_title') }}">
+                            @error('sub_title')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <div id="dropbox" class="dropbox my-4">
@@ -78,50 +81,6 @@
                             @error('description')
                             <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
-                        </div>
-                        <div class="col-12">
-                            <table class="table table-striped" id="sectorInputsTable">
-
-                                <tbody>
-                                    <tr class="keyRow" data-key="0">
-                                        <td>
-                                        @foreach (old('content', ['']) as $index => $value)
-                                            <textarea type="textarea" name="content[]" class="form-control @error('content.*') is-invalid @enderror" placeholder="{{ __('Content') }}">{{ $value }}</textarea>
-                                            @error('content.*')
-                                            <span class="invalid-feedback">{{ $message }}</span>
-                                            @enderror
-                                        @endforeach
-                                        </td>
-                                        <td scope="row">
-                                            <input type="file" name="sectorImage[]" class="form-control @error('sectorImage') is-invalid @enderror sectorImageUpload">
-                                            @error('sectorImage')
-                                                <span class="invalid-feedback">{{ $message }}</span>
-                                            @enderror
-
-                                            @foreach ($errors->get('sectorImage.*') as $messages)
-                                                @foreach ($messages as $message)
-                                                    <span class="invalid-feedback">{{ $message }}</span><br>
-                                                @endforeach
-                                            @endforeach
-                                            @foreach (old('location', ['']) as $index => $value)
-                                            <input type="text" name="location[]" class="form-control mt-2 @error('location.*') is-invalid @enderror" placeholder="{{ __('Location') }}">
-                                            @error('location.*')
-                                            <span class="invalid-feedback">{{ $message }}</span>
-                                            @enderror
-                                            @endforeach
-                                        </td>
-
-                                        <td><a class="btn btn-danger btn-sm btn-remove"><i class="bi bi-trash"></i></a></td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="3">
-                                            <a class="btn-plus btn btn-success" style="float: right;"><i class="bi bi-plus"></i></a>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
                         </div>
 
                         <div class="d-flex justify-content-end">
@@ -237,8 +196,8 @@
                 const img = document.createElement('img');
                 img.src = URL.createObjectURL(file);
                 img.className = "img-thumbnail";
-                img.style.maxWidth = "200px";
-                img.style.maxHeight = "200px";
+                img.style.maxWidth = "300px";
+                img.style.maxHeight = "300px";
                 img.style.objectFit = "cover";
 
                 const removeBtn = document.createElement('button');

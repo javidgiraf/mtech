@@ -34,7 +34,6 @@
                                 <th scope="col">Client</th>
                                 <th scope="col">Sector</th>
                                 <th scope="col">Logo</th>
-                                <th scope="col">Website</th>
                                 <th scope="col">Location</th>
                                 <th scope="col"></th>
                             </tr>
@@ -48,7 +47,6 @@
                                 <td>{{ $client->sector->title }}</td>
 
                                 <td><img src="{{ $client->getLogoUrl() }}" width="60px" height="60px"></td>
-                                <td><a href="{{ $client->website }}" target="_blank">{{ $client->website }}</a></td>
                                 <td>{{ $client->location }}</td>
                                 <td>
                                     @if(auth()->user()->can('Edit Client'))
@@ -67,13 +65,13 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="7">{{ __('No records available in table') }}</td>
+                                <td colspan="6">{{ __('No records available in table') }}</td>
                             </tr>
                             @endif
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="7">
+                                <td colspan="6">
                                     {{ $clients->links() }}
                                 </td>
                             </tr>

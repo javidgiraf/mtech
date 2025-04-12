@@ -1,0 +1,116 @@
+.request-quotation-area {
+  padding: 70px 0px 60px 0;
+
+  @include respond-below(sm) {
+    padding: 0;
+  }
+
+  .request-quotation-box {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #fff;
+    padding: 20px 60px;
+    border-radius: 60px;
+
+    @include respond-below(lg) {
+      justify-content: space-between;
+    }
+
+    @include respond-below(sm) {
+      flex-direction: column;
+      text-align: center;
+      padding: 20px 0 10px 0;
+      border-radius: 10px;
+    }
+
+
+    h3 {
+      color: #000;
+      font-weight: 500;
+
+      @include respond-below(sm) {
+        padding: 0px 0 20px 0;
+      }
+
+    }
+
+    .btn {}
+  }
+
+  .modal-dialog {
+    max-width: 1000px !important;
+    padding: 50px 0 0 0;
+
+    @include respond-below(xl) {
+      max-width: 1000px !important;
+    }
+
+    @include respond-below(lg) {
+      max-width: 800px !important;
+      padding: 40px 0 0 0;
+    }
+
+    @include respond-below(md) {
+      max-width: 600px !important;
+    }
+
+    @include respond-below(sm) {
+      max-width: 100% !important;
+      margin: 20px 0 0 0;
+    }
+
+
+  }
+
+  .close {
+    &.rq {
+      width: 20px !important;
+      color: #fff;
+      font-weight: 300;
+      background: none !important;
+      font-size: 40px !important;
+    }
+  }
+
+  .modal-content {
+    background: #0A0A0B;
+  }
+
+
+  .career-form {
+    &.request-qt {
+      display: flex;
+      flex-direction: column !important;
+
+      p {
+        padding: 0 130px;
+
+        @include respond-below(xl) {
+          padding: 0 90px;
+        }
+
+        @include respond-below(lg) {
+          padding: 0 70px;
+        }
+
+        @include respond-below(md) {
+          padding: 0 40px;
+        }
+
+        @include respond-below(sm) {
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+
+  .modal-header {
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 99;
+  }
+
+}

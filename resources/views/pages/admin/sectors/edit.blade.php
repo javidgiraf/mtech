@@ -45,14 +45,17 @@
                         </div>
                         <div class="col-12">
                             <label for="sub_title" class="form-label">{{ __(key: 'Sub Title') }}</label>
-                            <input type="text" name="sub_title" class="form-control" placeholder="{{ __('Sub Title') }}" value="{{ old('sub_title', $sector->sub_title) }}">
+                            <input type="text" name="sub_title" class="form-control @error('sub_title') is-invalid @enderror" placeholder="{{ __('Sub Title') }}" value="{{ old('sub_title', $sector->sub_title) }}">
+                            @error('sub_title')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <div id="dropbox" class="dropbox my-4">
                                 <p>Drag & Drop images here or click to upload</p>
                                 <input type="file" class="@error('image') is-invalid @enderror" name="image" id="fileInput" accept="image/*" hidden>
                                 <div class="position-relative d-inline-block m-2">
-                                    <img src="{{ asset('storage/sectors/'. $sector->image) }}" class="img-thumbnail" style="max-width: 200px; max-height: 200px; object-fit: cover;">
+                                    <img src="{{ asset('storage/sectors/'. $sector->image) }}" class="img-thumbnail" style="max-width: 300px; max-height: 300px; object-fit: cover;">
                                     <button onclick="$(this).parent().remove();" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" style="border-radius: 50%;">×</button>
                                 </div>
                             </div>
@@ -80,44 +83,6 @@
                             @error('description')
                             <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
-                        </div>
-
-                        <div class="col-12">
-                            <table class="table table-striped" id="sectorInputsTable">
-
-                                <tbody>
-                                    @foreach($sector->sectorDetails as $detail)
-                                    <tr class="siNo">
-                                        <td>
-                                            <textarea type="textarea" name="content[]" class="form-control" placeholder="{{ __('Content') }}">{{ $detail->description }}</textarea>
-                                            @error('content.*')
-                                            <span class="invalid-feedback">{{ $message }}</span>
-                                            @enderror
-                                        </td>
-                                        <td>
-                                            <img src="{{ $detail->getImageUrl() }}" width="100px" height="100px">
-                                        </td>
-                                        <td scope="row">
-                                            <input type="file" name="sectorImage[]" class="form-control">
-
-                                            <input type="text" name="location[]" class="form-control mt-2" placeholder="{{ __('Location') }}" value="{{ $detail->location }}">
-                                            @error('location.*')
-                                                <span class="invalid-feedback">{{ $message }}</span>
-                                            @enderror
-                                        </td>
-
-                                        <td><a class="btn btn-danger btn-sm btn-remove"><i class="bi bi-trash"></i></a></td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="4">
-                                            <a class="btn-plus btn btn-success" style="float: right;"><i class="bi bi-plus"></i></a>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
                         </div>
 
                         <div class="d-flex justify-content-end">
@@ -199,8 +164,8 @@ $("#sectorInputsTable").on("click", ".btn-plus", function() {
                 const img = document.createElement('img');
                 img.src = URL.createObjectURL(file);
                 img.className = "img-thumbnail";
-                img.style.maxWidth = "200px";
-                img.style.maxHeight = "200px";
+                img.style.maxWidth = "300px";
+                img.style.maxHeight = "300px";
                 img.style.objectFit = "cover";
 
                 const removeBtn = document.createElement('button');

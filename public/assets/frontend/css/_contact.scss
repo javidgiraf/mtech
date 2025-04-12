@@ -1,0 +1,277 @@
+.contact-area {
+    padding: 0px;
+
+    .contact-box {
+        background: #fff;
+        text-align: center;
+        border-radius: 25px;
+        padding: 60px 0 50px 0;
+        margin: 0 0px 40px 0px;
+        min-height: 360px;
+
+        @include respond-below(xl) {
+            padding: 40px 10px 10px 10px;
+            margin: 0 0px 40px 0px;
+        }
+
+        @include respond-below(lg) {
+            padding: 40px 5px 20px 5px;
+            margin: 0 0px 40px 0px;
+            min-height: 290px;
+        }
+
+        @include respond-below(md) {
+            padding: 40px 10px 20px 10px;
+            margin: 0 0px 40px 0px;
+            min-height: 290px;
+        }
+
+        @include respond-below(sm) {
+            padding: 40px 10px 30px 10px;
+            margin: 0 0px 40px 0px;
+            min-height: auto;
+        }
+
+
+        h5 {
+            color: #333;
+            margin: 0 0 25px 0;
+        }
+
+        h6 {
+            color: #333;
+            line-height: 26px;
+            margin: 0 0 3px 0;
+
+            a {
+                text-decoration: none;
+                color: #333;
+
+                &:hover {
+                    text-decoration: none;
+                    color: $brand-color;
+                }
+            }
+        }
+
+        i {
+            font-size: 50px;
+            color: $brand-color;
+            margin: 0 0 15px 0;
+        }
+
+        ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+
+            @include respond-below(xl) {
+                gap: 15px;
+            }
+
+            @include respond-below(lg) {
+                gap: 10px;
+            }
+
+            li {
+                list-style: none;
+                border: 1px solid #ffc700;
+                width: 60px;
+                height: 60px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                border-radius: 8px;
+
+                @include respond-below(xl) {
+                    width: 70px;
+                }
+
+                @include respond-below(lg) {
+                    width: 60px;
+                }
+
+
+                a {
+                    color: #333;
+                    font-weight: 600;
+
+                    &:hover {
+                        color: $brand-color;
+                        text-decoration: none;
+                    }
+
+                    i {
+                        font-size: 23px;
+                        color: $brand-color;
+                        margin: 0;
+
+                        &:hover {
+                            color: $brand-color;
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.s-field {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    }
+}
+
+.map-area {
+    padding: 100px 0 60px 0;
+
+    @include respond-below(lg) {
+        padding: 50px 0 60px 0;
+    }
+
+    @include respond-below(sm) {
+        padding: 10px 0 60px 0;
+    }
+
+    .map {
+        iframe {
+            border-radius: 12px;
+            height: 550px;
+
+            @include respond-below(lg) {
+                height: 400px;
+            }
+
+            @include respond-below(sm) {
+                height: 300px;
+            }
+        }
+
+        h2 {
+            color: #fff;
+            text-align: center;
+            margin: 0 0 30px 0;
+        }
+    }
+}
+
+
+// ================================================ career-form-area start  ===================================================
+.contact-form-area {
+    padding: 30px 0 120px 0;
+
+    @include respond-below(xl) {
+        padding: 30px 0 100px 0;
+    }
+
+    @include respond-below(lg) {
+        padding: 30px 0 90px 0;
+    }
+
+    @include respond-below(md) {
+        padding: 30px 0 80px 0;
+    }
+
+
+    .contact-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            font-size: 5rem !important;
+            font-weight: 400;
+            margin: 0 0 35px 0;
+
+            @include respond-below(lg) {
+                font-size: 3.5rem !important;
+                margin: 0 0 25px 0;
+            }
+
+            @include respond-below(md) {
+                font-size: 3rem !important;
+                margin: 0 0 20px 0;
+            }
+
+            @include respond-below(sm) {
+                font-size: 2.5rem !important;
+                margin: 0 0 15px 0;
+            }
+
+        }
+
+        p {
+            text-align: center;
+            line-height: 28px;
+            color: #fff;
+            margin: 0 0 50px 0;
+            font-weight: 300;
+        }
+
+        .contact-form-box {
+            .form-bg {
+
+                .form-container {
+                    font-size: 0;
+                    overflow: hidden;
+
+                    .form-group {
+                        .form-control {
+                            margin-bottom: 25px;
+                            border-radius: 0;
+                            background: none;
+                            border-bottom: 1px solid #ccc;
+                            border-top: none;
+                            border-right: none;
+                            border-left: none;
+                            padding: 0 0 10px 5px;
+                            color: #dadada;
+
+                            &::placeholder {
+                                color: #bcbbbb;
+                            }
+
+                            &:focus {
+                                box-shadow: none !important;
+                            }
+
+                            option {
+                                color: #333;
+                                font-size: 14px;
+                            }
+                        }
+
+                        i {
+                            position: absolute;
+                            left: 25px;
+                            color: #c5c3c3;
+                        }
+
+                        &.city {
+                            position: relative;
+                            bottom: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ================================================ career-form-area end  =====================================================
+
+
+
+@media only screen and (min-width : 1200px) and (max-width : 1279px) {
+    .contact-area .contact-box {
+        padding: 60px 10px 50px 10px;
+        margin: 0 10px 40px 10px;
+    }
+}

@@ -1,0 +1,170 @@
+.timeline-area {
+    padding: 70px 0 70px 0;
+    background: url(../img/about/timeline-bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    margin: 40px 0 70px 0;
+
+    @include respond-below(md) {
+        margin: 30px 0 0px 0;
+    }
+
+    @include respond-below(sm) {
+        padding: 20px 0 30px 0;
+        margin: 30px 0 40px 0;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: #000000b0;
+        z-index: 0;
+    }
+
+    .section-title {
+        text-align: left;
+        font-weight: 400;
+        margin-bottom: 30px;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+    }
+
+    p {
+        color: #dfdfdf;
+        position: relative;
+        z-index: 1;
+        margin: 0px 0 50px 0;
+    }
+
+    .timelineSwiper {
+        padding: 0 48px;
+
+        @include respond-below(xl) {
+            padding: 0 35px;
+        }
+
+        @include respond-below(lg) {
+            padding: 0 35px;
+        }
+
+        @include respond-below(md) {
+            padding: 0 35px;
+        }
+
+        @include respond-below(sm) {
+            padding: 0 30px;
+        }
+
+
+
+        .swiper-wrapper {
+            .swiper-slide {
+                padding: 0 20px;
+
+                @include respond-below(xl) {
+                    padding: 0 10px;
+                }
+
+                @include respond-below(lg) {
+                    padding: 0 10px;
+                }
+
+                @include respond-below(md) {
+                    padding: 0 10px;
+                }
+
+                @include respond-below(sm) {
+                    padding: 0 6px;
+                }
+
+
+                .timeline-box {
+                    margin: 10px 0 0 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    background: #fff;
+                    border-radius: 13px;
+                    padding: 22px 20px;
+                    height: 220px;
+                    text-align: center;
+                }
+
+                .slider-content {
+                    margin: 10px 0 0 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: #fff;
+                    border-radius: 13px;
+                    padding: 22px 20px;
+
+                    h5 {
+                        text-transform: capitalize;
+                        color: #333;
+                        font-weight: 500;
+                        margin: 0;
+                    }
+                }
+
+                img {
+                    width: 100%;
+                    border-radius: 25px;
+                    height: 340px;
+                    -o-object-fit: cover;
+                    object-fit: cover;
+
+                    @include respond-below(xl) {
+                        height: 300px;
+                    }
+
+                    @include respond-below(lg) {
+                        height: 250px;
+                    }
+
+                    @include respond-below(md) {
+                        height: 300px;
+                    }
+
+                }
+            }
+        }
+
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 23px;
+            padding: 20px 10px;
+            color: #ffffff;
+            font-weight: 600;
+            font-family: swiper-icons;
+            display: none;
+        }
+
+        .swiper-button-prev {
+            background-image: url("../img/left-arrow.png") !important;
+            background-repeat: no-repeat;
+        }
+
+        .swiper-button-next {
+            background-image: url("../img/right-arrow.png") !important;
+            background-repeat: no-repeat;
+        }
+
+    }
+
+    .btn {
+        margin: 30px 0 0 0;
+    }
+
+}

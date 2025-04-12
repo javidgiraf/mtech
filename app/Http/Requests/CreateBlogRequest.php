@@ -23,7 +23,7 @@ class CreateBlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', Rule::unique('blogs', 'title')],
+            'title' => ['required', 'string'],
             'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
             'description' => ['required']
         ];

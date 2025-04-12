@@ -32,8 +32,9 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">{{ __('Position') }}</th>
-                                <th scope="col">{{ __('Discipline') }}</th>
+                                <th scope="col" width="20%">{{ __('Discipline') }}</th>
                                 <th scope="col">{{ __('Job Type') }}</th>
+                                <th scope="col">{{ __('Job Code') }}</th>
                                 <th scope="col">{{ __('Location') }}</th>
                                 <th></th>
                             </tr>
@@ -46,6 +47,7 @@
                                 <td>{{ $career->position }}</td>
                                 <td>{{ $career->discipline }}</td>
                                 <td>{{ $career->job_type }}</td>
+                                <td>{{ $career->job_code }}</td>
                                 <td>{{ $career->location }}</td>
                                 <td>
                                     @if(auth()->user()->can('Edit Career'))
@@ -63,11 +65,11 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="6">{{ __('No records available in table') }}</td>
+                                <td colspan="7">{{ __('No records available in table') }}</td>
                             </tr>
                             @endif
                         </tbody>
-                        <tfoot colspan="6">
+                        <tfoot colspan="7">
                             {{ $careers->links() }}
                         </tfoot>
                     </table>

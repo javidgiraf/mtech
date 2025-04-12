@@ -32,7 +32,6 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Title</th>
-                                <th scope="col">SubTitle</th>
                                 <th scope="col">Image</th>
                                 <th scope="col"></th>
                             </tr>
@@ -43,7 +42,6 @@
                             <tr>
                                 <th scope="row">{{ $blogs->firstItem() + $loop->index }}</th>
                                 <td>{{ $blog->title }}</td>
-                                <td>{{ $blog->sub_title }}</td>
                                 <td><img src="{{ $blog->getImageUrl() }}" width="60px" height="60px"></td>
                                 <td>
                                     @if(auth()->user()->can('Edit Blog'))
@@ -61,11 +59,11 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="5">{{ __('No records available in table') }}</td>
+                                <td colspan="4">{{ __('No records available in table') }}</td>
                             </tr>
                             @endif
                         </tbody>
-                        <tfoot colspan="5">
+                        <tfoot colspan="4">
                             {{ $blogs->links() }}
                         </tfoot>
                     </table>

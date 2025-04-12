@@ -50,8 +50,16 @@
                             @enderror
                         </div>
                         <div class="col-12">
+                            <label for="jobcode" class="col-form-label">{{ __('Job Code') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="job_code" class="form-control @error('job_code') is-invalid @enderror" value="{{ old('job_code') }}" placeholder="{{ __('Job Code') }}">
+                            
+                            @error('job_code')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-12">
                             <label for="location" class="col-form-label">{{ __('Location') }} <span class="text-danger">*</span></label>
-                            <input type="text" name="location" class="form-control @error('location') is-invalid @enderror" value="{{ old('location') }}">
+                            <input type="text" name="location" class="form-control @error('location') is-invalid @enderror" value="{{ old('location') }}" placeholder="{{ __('Location') }}">
                             
                             @error('location')
                                 <span class="invalid-feedback">{{ $message }}</span>

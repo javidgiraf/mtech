@@ -12,7 +12,7 @@
             </ol>
         </nav>
     </div>
-    @if(auth()->user()->can('Create Product'))
+    @if(auth()->user()->can('Create Product') && empty($productsCount))
     <div>
         <a href="{{ route('admin.products.create') }}" class="btn btn-primary"><i class="bi bi-plus"></i></a>
     </div>
@@ -32,7 +32,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Title</th>
-                                <th scope="col">Sub Title</th>
+                                <th scope="col">Sector</th>
                                 <th scope="col">Image</th>
                                 <th scope="col"></th>
                             </tr>
@@ -43,7 +43,11 @@
                             <tr>
                                 <th scope="row">{{ $products->firstItem() + $loop->index }}</th>
                                 <td>{{ $product->title }}</td>
-                                <td>{{ $product->sub_title }}</td>
+                                <td>
+                                    @foreach($product->productSectors as $productSector) 
+                                        {{ $productSector->sector->title }}
+                                    @endforeach
+                                </td>
                                 <td><img src="{{ $product->getImageUrl() }}" width="60px" height="60px"></td>
                             
                                 <td>
@@ -63,13 +67,13 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="7">{{ __('No records available in table') }}</td>
+                                <td colspan="5">{{ __('No records available in table') }}</td>
                             </tr>
                             @endif
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="7">
+                                <td colspan="5">
                                     {{ $products->links() }}
                                 </td>
                             </tr>

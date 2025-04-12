@@ -1,0 +1,776 @@
+header {
+    height: 80px;
+    left: 0;
+    padding: 0.5rem;
+    position: fixed;
+    text-align: right;
+    top: 50px;
+    transition: transform 0.6s;
+    width: 90%;
+    z-index: 999999;
+    right: 0;
+    margin: 0 auto;
+
+    @include respond-below(sm) {
+        width: 100%;
+        top: 15px;
+    }
+
+    .logo {
+        position: absolute;
+        left: 80px;
+        width: 150px;
+        top: 6px;
+
+        @include respond-below(xl) {
+            left: 60px;
+            width: 140px;
+        }
+
+        @include respond-below(lg) {
+            left: 40px;
+            width: 110px;
+        }
+
+        @include respond-below(md) {
+            left: 40px;
+            width: 110px;
+        }
+
+        @include respond-below(sm) {
+            left: 28px;
+            width: 80px;
+        }
+    }
+
+    .toggle-menus {
+        position: relative;
+        background: #000;
+        border-radius: 50px;
+        padding: 14px 0;
+
+        .menu-text {
+            z-index: 99999;
+            top: -5px;
+            right: -45px;
+            color: #000;
+            font-size: 15px;
+            font-weight: 500;
+            position: relative;
+
+            @include respond-below(sm) {
+                display: none;
+            }
+
+        }
+    }
+}
+
+main {
+    background-color: #485274;
+    height: 100vh;
+    padding-top: 80px;
+    transform-origin: left center;
+    transition: transform 0.6s 50ms;
+}
+
+.container {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.nav-button {
+    text-transform: uppercase;
+}
+
+.nav-wrappers {
+    background-color: #00000091;
+    box-shadow: -1px 0px 3px 0px rgba(0, 0, 0, 0.75);
+    height: 100%;
+    perspective: 1000px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    // transform: translateX(100%);
+    transition: transform 0.6s, visibility 0.6s;
+    visibility: hidden;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    overflow-y: scroll;
+
+    .push-logo {
+        width: 330px;
+        height: auto;
+        position: absolute;
+        left: 340px;
+        top: 250px;
+
+        @include respond-below(xl) {
+            left: 200px;
+            width: 280px;
+            height: auto;
+            top: 310px;
+        }
+
+        @include respond-below(lg) {
+            left: 140px;
+            width: 240px;
+            height: auto;
+            top: 270px;
+        }
+
+        @include respond-below(md) {
+            left: 60px;
+            width: 190px;
+            height: auto;
+            top: 330px;
+        }
+
+        @include respond-below(sm) {
+            position: initial;
+            z-index: 9;
+            width: 110px;
+            height: 110px;
+            margin: 100px auto;
+        }
+    }
+}
+
+.nav-visible .nav-wrappers {
+    // transform: translateX(0);
+    visibility: visible;
+    z-index: 9999;
+}
+
+.nav-m {
+    position: relative;
+    // transform: rotateY(90deg);
+    transform-origin: left center;
+    transition: transform 0.6s;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+    list-style: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 60px 0 0 90px;
+    background: #0A0A0B;
+    width: 480px;
+    height: 100%;
+    position: absolute;
+    top: 110px;
+    right: 220px;
+
+    @include respond-below(xl) {
+        padding-left: 100px !important;
+    }
+
+    @include respond-below(lg) {
+        padding: 20px 0 0 40px !important;
+        right: 80px;
+    }
+
+    @include respond-below(md) {
+        padding-left: 40px !important;
+        width: 50vw;
+    }
+
+    @include respond-below(sm) {
+        padding: 30px 10px 10px 10px !important;
+        width: 99%;
+        height: 70vh;
+        right: 0px;
+        top: 70px;
+    }
+
+    li {
+        width: 100%;
+
+        @include respond-below(sm) {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+}
+
+.nav-visible .nav-m {
+    // transform: rotateY(0deg);
+}
+
+.nav-m li.active a {
+    // background-color: #212635;
+    color: #F9B217;
+}
+
+.nav-m a {
+    display: block;
+    line-height: 50px;
+    padding: 0;
+    text-transform: capitalize;
+    font-size: 25px;
+    color: #d9d9d9;
+    font-weight: 300;
+    text-decoration: unset;
+
+    @include respond-below(xl) {
+        font-size: 22px;
+        padding: 3px 0;
+        line-height: 50px;
+    }
+
+    @include respond-below(lg) {
+        font-size: 22px;
+        padding: 3px 0;
+        line-height: 50px;
+    }
+
+    @include respond-below(md) {
+        font-size: 22px;
+        padding: 3px 0;
+        line-height: 50px;
+    }
+
+    @include respond-below(sm) {
+        font-size: 22px;
+        padding: 3px 0;
+        line-height: 50px;
+    }
+}
+
+.nav-m a:focus,
+.nav-m a:hover {
+    color: #F9B217;
+    text-decoration: none;
+}
+
+.nav-m arker {
+    background-color: currentColor;
+    height: 2.8rem;
+    position: absolute;
+    right: 0;
+    top: 80px;
+    width: 3px;
+}
+
+.nav-m arker:before {
+    border: 5px solid transparent;
+    border-right-color: inherit;
+    content: "";
+    height: 0;
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+}
+
+.color-1 {
+    color: deeppink;
+}
+
+button.close {
+    background-color: #F9B217 !important;
+    margin: 0px 80px 0 0 !important;
+    padding: 0 !important;
+    width: 120px !important;
+    height: 40px !important;
+    border-radius: 20px !important;
+    opacity: 1 !important;
+    border: none !important;
+    text-shadow: none !important;
+
+    @include respond-below(xl) {
+        margin: 0px 50px 0 0 !important;
+    }
+
+    @include respond-below(lg) {
+        margin: 0px 30px 0 0 !important;
+    }
+
+    @include respond-below(md) {
+        margin: 0px 30px 0 0 !important;
+    }
+
+    @include respond-below(sm) {
+        margin: 0 5px 0 0 !important;
+        height: 30px !important;
+        width: 38px !important;
+        border-radius: 3px !important;
+    }
+
+}
+
+.close:not(:disabled):not(.disabled):focus-visible {
+    outline: none !important;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+
+.button-lines {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    padding: 1rem 0.5rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.lines {
+    background: #000;
+    border-radius: 0.2rem;
+    display: inline-block;
+    height: 0.14rem;
+    width: 22px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    left: 20px;
+    top: 6px;
+
+    @include respond-below(sm) {
+        height: 0.12rem;
+        width: 24px;
+        gap: 20px;
+        left: 7px;
+        top: 6px;
+    }
+}
+
+// .lines:hover {
+//   background: #000;
+// }
+.lines:after,
+.lines:before {
+    background: #000;
+    border-radius: 0.2rem;
+    display: inline-block;
+    height: 0.12rem;
+    width: 22px;
+    content: "";
+    left: 0;
+    position: absolute;
+    margin-top: -5px;
+
+    @include respond-below(sm) {
+        border-radius: 0;
+        height: 0.12rem;
+        width: 24px;
+    }
+}
+
+.lines:after:hover,
+.lines:before:hover {
+    background: #000;
+}
+
+.lines:after {
+    top: 0.5rem;
+    margin-top: -14px;
+}
+
+.lines:before {
+    top: -0.5rem;
+}
+
+.button-lines-x .lines {
+    transition: background 0.3s ease;
+}
+
+.button-lines-x .lines:after,
+.button-lines-x .lines:before {
+    transform-origin: 50% 50% 0;
+    transition: top 0.3s 0.4s ease, transform 0.3s ease;
+}
+
+.nav-visible .button-lines-x .lines {
+    background: transparent;
+}
+
+.nav-visible .button-lines-x .lines:after,
+.nav-visible .button-lines-x .lines:before {
+    top: 0;
+    transition: top 0.3s ease, transform 0.3s 0.3s ease;
+}
+
+.nav-visible .button-lines-x .lines:after {
+    transform: rotate3d(0, 0, 1, 45deg);
+    top: 8px;
+}
+
+.nav-visible .button-lines-x .lines:before {
+    transform: rotate3d(0, 0, 1, -45deg);
+}
+
+// ============================================= Lines   =================================================
+.wgl-body-lines {
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.wgl-body-lines span {
+    position: fixed;
+    z-index: 1;
+    width: 1px;
+    height: 100%;
+    background: #1a1a1a;
+
+}
+
+.wgl-body-lines span:nth-child(1) {
+    left: 16.6%;
+
+    @include respond-below(lg) {
+        left: 25%;
+    }
+
+    @include respond-below(md) {
+        left: 25%;
+    }
+
+    @include respond-below(sm) {
+        left: 30%;
+    }
+
+}
+
+.wgl-body-lines span:nth-child(2) {
+    left: 33.2%;
+
+    @include respond-below(lg) {
+        left: 50%;
+    }
+
+    @include respond-below(md) {
+        left: 50%;
+    }
+
+    @include respond-below(sm) {
+        left: 70%;
+    }
+
+}
+
+.wgl-body-lines span:nth-child(3) {
+    left: 49.8%;
+
+    @include respond-below(lg) {
+        left: 75%;
+    }
+
+    @include respond-below(md) {
+        left: 75%;
+    }
+
+    @include respond-below(sm) {
+        display: none;
+    }
+
+}
+
+.wgl-body-lines span:nth-child(4) {
+    left: 66.4%;
+
+    @include respond-below(lg) {
+        display: none;
+    }
+
+    @include respond-below(md) {
+        display: none;
+    }
+
+    @include respond-below(sm) {
+        display: none;
+    }
+
+}
+
+.wgl-body-lines span:nth-child(5) {
+    left: 83%;
+
+    @include respond-below(lg) {
+        display: none;
+    }
+
+    @include respond-below(md) {
+        display: none;
+    }
+
+    @include respond-below(sm) {
+        display: none;
+    }
+
+}
+
+// ============================================= Lines   =================================================
+
+
+// ============================================= Sticky Nav   =================================================
+
+
+
+/* ================== sticky ==================== */
+.navbar-scroll {
+    background-color: rgb(0 0 0) !important;
+    padding: 0;
+    position: fixed;
+    top: -16px;
+    z-index: 999;
+    box-shadow: 0px 1px 10px rgb(0 0 0 / 40%);
+    transition-duration: 0.6s;
+    height: 100px;
+}
+
+
+.navbar-scroll .nav-item .nav-link {
+    color: black;
+}
+
+.navbar-scroll .header-btn {
+    color: #ffffff;
+    background-color: #fe4066;
+}
+
+.navbar-scroll .logo {
+    color: #000;
+    font-weight: 500;
+}
+
+.navbar-scroll .logo_area .two {
+    width: 220px;
+    display: block;
+    position: absolute;
+    left: 38px;
+    top: 0px;
+}
+
+.navbar-scroll .logo_area .one {
+    opacity: 0;
+    transform: rotateX(-45deg);
+    transition: opacity 150ms cubic-bezier(0.215, 0.61, 0.355, 1) 0ms, transform 150ms cubic-bezier(0.215, 0.61, 0.355, 1) 0ms;
+}
+
+.navbar-scroll .inner_main_menu ul {
+    padding-top: 30px;
+}
+
+.navbar-scroll .inner_menu {
+    width: 1360px;
+}
+
+.navbar-scroll .inner_main_menu {
+    width: 1040px;
+    transform: top translate(-100%);
+}
+
+
+//  ==================================================================== sticky
+
+
+.inner {
+    width: 800px;
+    position: relative;
+    margin: 0 auto;
+}
+
+header {
+    position: fixed;
+    width: 90%;
+    padding-top: 0px;
+    transition: 0.7s all;
+    z-index: 10000;
+}
+
+header.alt-header {
+    background: #fff;
+}
+
+.alt-header a {
+    color: #000;
+}
+
+body.header-fixed header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding-top: 0;
+    width: 100%;
+    z-index: 99999;
+
+    @include respond-below(lg) {
+        top: 0;
+    }
+}
+
+body.header-fixed .nav-m {
+    position: fixed;
+    top: 65px;
+    right: 0;
+    padding-top: 0;
+    z-index: 99999;
+}
+
+body.header-fixed .toggle-menus {
+    border-radius: 0;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+body.header-fixed header .com-nav {
+    background: #1E1E1E;
+    height: 60px;
+
+    @include respond-below(lg) {
+        height: 55px;
+    }
+
+    @include respond-below(md) {
+        height: 55px;
+    }
+
+    @include respond-below(sm) {
+        height: 45px;
+    }
+
+}
+
+body.header-fixed .nav__logo img {
+    width: 90px;
+    position: relative;
+    z-index: 9;
+    top: 25px;
+
+    @include respond-below(lg) {
+        width: 60px;
+        top: 10px;
+    }
+
+    @include respond-below(sm) {
+        width: 40px;
+        top: 0px;
+    }
+}
+
+body.header-fixed .nav__list {
+    top: 0;
+    position: relative;
+    left: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    z-index: 1;
+    bottom: 0;
+    padding: 20px 0;
+
+    @include respond-below(sm) {
+        padding: 70px 0 !important;
+    }
+}
+
+.logo {
+    float: left;
+    color: #fff;
+    font-size: 50px;
+    line-height: 50px;
+    transition: 0.7s all;
+}
+
+.alt-header .logo {
+    color: #000;
+}
+
+body.header-fixed .logo {
+    font-size: 30px;
+}
+
+.alternate {
+    background: #000;
+    color: #fff;
+}
+
+section .inner {
+    padding-top: 200px;
+}
+
+//  ==================================================================== sticky
+
+@media only screen and (min-width : 1025px) and (max-width : 1440px) {
+
+    .title {
+        font-size: 2rem !important;
+    }
+
+    .navbar-scroll {
+        height: 95px;
+    }
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+
+    .title {
+        font-size: 1.8rem !important;
+    }
+
+    .main .tab-menu-link {
+        width: calc(100% / 2) !important;
+    }
+
+    h2 {
+        font-size: 2.3rem;
+    }
+
+
+    .navbar-scroll {
+        height: 88px;
+        top: -20px;
+    }
+
+    .product h4 {
+        margin-top: 130px !important;
+    }
+
+
+    .pro-read {
+        bottom: -80px !important;
+        padding: 10px 0 !important;
+    }
+
+
+}
+
+@media only screen and (min-width : 150px) and (max-width : 767px) {
+    .navbar-scroll {
+        height: 70px;
+    }
+}
+
+/* ================== sticky ==================== */
+
+// ============================================= Sticky Nav   =================================================
+
+@media only screen and (min-width : 1200px) and (max-width : 1320px) {
+
+    .nav-m a {
+        font-size: 20px;
+        line-height: 35px;
+    }
+
+    .nav-m {
+        padding-left: 60px !important;
+    }
+}

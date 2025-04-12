@@ -17,12 +17,12 @@
 @endpush
 @section('content')
 <div class="pagetitle">
-    <h1>{{ __('Edit Product') }}</h1>
+    <h1>{{ __('Create Product') }}</h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
             <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">{{ __('Products') }}</a></li>
-            <li class="breadcrumb-item active">{{ __('Edit') }}</li>
+            <li class="breadcrumb-item active">{{ __('Create') }}</li>
         </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -33,7 +33,6 @@
 
             <div class="card">
                 <div class="card-body mt-4">
-
 
 
                     <form class="row g-3" action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data" id="productForm">
@@ -51,34 +50,38 @@
                             <input type="text" name="sub_title" id="sub_title" class="form-control" placeholder="{{ __('Sub Title') }}" value="{{ old('sub_title', $product->sub_title) }}">
                         </div>
 
-                        <div class="d-flex justify-content-center">
-                            <div class="col-4">
-                                <div class="card">
-                                    <div class="card-body mt-3">
-                                        <img src="{{ $product->getImageUrl() }}" class="d-block w-100">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-12">
-                            <label for="image" class="col-form-label">{{ __('Upload Image') }} <span class="text-danger">*</span></label>
-                            <input class="form-control @error('image') is-invalid @enderror" type="file" name="image">
-                            @error('image')
+                            <label for="sector" class="form-label">{{ __(key: 'Choose Sector') }}</label>
+                            <select name="sector_ids[]" class="form-control sector_ids @error('sector_ids') is-invalid @enderror" multiple>
+                                <option value="">Choose Sector</option>
+                                @foreach($sectors as $sector)
+                                <option {{ in_array($sector->id, old('sector_ids', isset($product) ? $product->productSectors->pluck('sector_id')->toArray() : [])) ? 'selected' : '' }} value="{{ $sector->id }}">{{ $sector->title }}</option>
+                                @endforeach
+                            </select>
+                            @error('sector_ids')
                             <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
 
+                        <div class="d-flex justify-content-center">
+                            <div class="col-5">
+                                <div class="card showImageCard d-none">
+                                    <div class="card-body mt-3">
+                                        <img class="d-block w-100 imgPreview">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="col-12">
                             <div id="dropbox" class="dropbox my-4">
                                 <p>Drag & Drop images here or click to upload</p>
-                                <input type="file" class="@error('productImages') is-invalid @enderror @error('productImages.*') is-invalid @enderror" name="productImages[]" id="fileInput" multiple accept="image/*" hidden>
-                                @foreach($product->productImages->pluck('image') as $image)
+                                <input type="file" class="@error('image') is-invalid @enderror" name="image" id="fileInput" accept="image/*" hidden>
                                 <div class="position-relative d-inline-block m-2">
-                                    <input type="hidden" name="oldImages[]" value="{{ $image }}">
-                                    <img src="{{ asset('storage/productImages/'. $image) }}" class="img-thumbnail" style="max-width: 200px; max-height: 200px; object-fit: cover;">
+                                    <img src="{{ asset('storage/products/'. $product->image) }}" class="img-thumbnail" style="max-width: 300px; max-height: 300px; object-fit: cover;">
                                     <button onclick="$(this).parent().remove();" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" style="border-radius: 50%;">×</button>
                                 </div>
-                                @endforeach
                             </div>
                             <div id="preview-container" class="d-none">
                                 <h4>Image Preview</h4>
@@ -92,14 +95,20 @@
                                     </button>
                                 </div>
                             </div>
-                            @error('productImages')
-                            <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-
-                            @error('productImages.*')
+                            @error('image')
                             <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="col-12">
+                            <label for="content" class="col-form-label">{{ __('Content') }} <span class="text-danger">*</span></label>
+                            <textarea name="content" id="content" class="tinymce-editor @error('content') is-invalid @enderror">
+                                {!! old('content', $product->content) !!}
+                            </textarea>
+                            @error('content')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <div class="col-12">
                             <label for="description" class="col-form-label">{{ __('Description') }} <span class="text-danger">*</span></label>
                             <textarea name="description" id="description" class="tinymce-editor @error('description') is-invalid @enderror">
@@ -111,43 +120,81 @@
                         </div>
 
                         <div class="col-12">
+                            <table class="table table-striped" id="applicationPhotosTable">
 
-                            <table class="table" width="100%" id="productCatalogsTable">
-                                <thead>
-                                    <tr>
-                                        <th colspan="5">Catalog</th>
-                                    </tr>
-                                </thead>
                                 <tbody>
-                                    @foreach($product->catalogs as $key => $catalog)
                                     <tr>
-                                        <td class="siNo">
-                                            {{ $key+1 }}
-                                        </td>
-                                        <td><input type="text" name="catalogTitle[]" class="form-control" placeholder="Title" value="{{ old('title', $catalog->title) }}"></td>
+                                        <th colspan="4">{{ __('Application Photos') }}</th>
+                                    </tr>
+                                    @foreach($product->productImages as $productImage)
+                                    <tr class="keyRow" data-key="0">
                                         <td>
-                                            <input type="file"
-                                                name="pdfFile[]"
-                                                class="form-control" accept="application/pdf">
-                                        </td>
-                                        <td>
-                                            @if($catalog->pdf_file)
-                                                <a href="{{ $catalog->getCatalogPdfUrl() }}" target="_blank" class="btn btn-primary btn-sm">{{ __('View Pdf') }}</a>
-                                            @else
-                                                <a class="btn btn-secondary btn-sm" aria-disabled="true">{{ __('No Pdf') }}</a>
-                                            @endif
+                                            <input type="text" name="applicationTitle[]" class="form-control @error('applicationTitle.*') is-invalid @enderror" placeholder="{{ __('Title') }}" value="{{ $productImage->title }}"></i>
+                                            @error('applicationTitle.*')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
+                                    
                                         </td>
                                         <td>
-                                            <a class="btn btn-danger btn-remove"><i class="bi bi-basket"></i></a>
+                                            <img src="{{ asset('storage/productImages/'. $productImage->image) }}" width="100px" height="100px">
                                         </td>
+                                        <td scope="row">
+                                            <input type="hidden" name="imageId[]" value="{{ $productImage->id }}">
+                                            <input type="file" name="applicationImage[]" class="form-control @error('applicationImage') is-invalid @enderror applicationImageUpload" accept="image/*">
+                                            @error('applicationImage')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
+
+                                            @foreach ($errors->get('applicationImage.*') as $messages)
+                                            @foreach ($messages as $message)
+                                            <span class="invalid-feedback">{{ $message }}</span><br>
+                                            @endforeach
+                                            @endforeach
+                                        </td>
+
+                                        <td><a class="btn btn-danger btn-sm btn-remove"><i class="bi bi-basket"></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
-
                                 <tfoot>
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="4">
+                                            <a class="btn-plus btn btn-success" style="float: right;"><i class="bi bi-plus"></i></a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <table class="table table-striped" id="applicationVideosTable">
 
+                                <tbody>
+                                    <tr>
+                                        <th colspan="3">{{ __('Application Videos') }}</th>
+                                    </tr>
+                                    @foreach($product->productVideos as $productVideo)
+                                    <tr class="keyRow" data-key="0">
+                                        <td>
+                                            <input type="text" name="applicationVideoTitle[]" class="form-control @error('applicationVideoTitle.*') is-invalid @enderror" placeholder="{{ __('Video Title') }}" value="{{ $productVideo->title }}">
+                                            @error('applicationVideoTitle.*')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
+                                           
+                                        </td>
+                                        <td scope="row">
+                                            <input type="text" name="applicationVideoUrl[]" class="form-control @error('applicationVideoUrl.*') is-invalid @enderror" placeholder="{{ __('Video URL') }}" value="{{ $productVideo->url }}">
+                                            @error('applicationVideoUrl.*')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
+                                        </td>
+
+                                        <td><a class="btn btn-danger btn-sm btn-remove"><i class="bi bi-basket"></i></a></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3">
                                             <a class="btn-plus btn btn-success" style="float: right;"><i class="bi bi-plus"></i></a>
                                         </td>
                                     </tr>
@@ -174,14 +221,28 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $("#sector_id").select2({
+        $(".sector_ids").select2({
             placeholder: "Choose Sector",
             allowClear: true
         });
 
-        $("#client_id").select2({
-            placeholder: "Choose Sector",
+        $(".project_ids").select2({
+            placeholder: "Choose Project",
             allowClear: true
+        });
+
+        $('.showImageCard').addClass('d-none');
+        $(document).on('change', '.imgInput', function(event) {
+            var file = event.target.files[0];
+
+            if (file) {
+                $('.showImageCard').removeClass('d-none');
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $(".imgPreview").attr("src", e.target.result).show();
+                };
+                reader.readAsDataURL(file);
+            }
         });
 
 
@@ -194,21 +255,39 @@
         }
 
         // Add new row
-        $("#productCatalogsTable").on("click", ".btn-plus", function() {
+
+
+        $("#applicationPhotosTable").on("click", ".btn-plus", function() {
             let html = `
     <tr>
-      <td class="siNo"></td>
-      <td><input type="text" name="catalogTitle[]" class="form-control" placeholder="Title"></td>
-      <td><input type="file" name="pdfFile[]" class="form-control" accept="application/pdf"></td>
-      <td><a class="btn btn-secondary btn-sm" aria-disabled="true">{{ __('No Pdf') }}</a></td>
-      <td><a class="btn btn-danger btn-remove"><i class="bi bi-basket"></i></a></td>
+      <td><input type="text" name="applicationTitle[]" class="form-control" placeholder="Title"></td>
+      <td></td>
+      <td><input type="file" name="applicationImage[]" class="form-control" accept="image/*"></td>
+      <td><a class="btn btn-danger btn-sm btn-remove"><i class="bi bi-basket"></i></a></td>
     </tr>`;
-            $("#productCatalogsTable tbody").append(html);
+            $("#applicationPhotosTable tbody").append(html);
             siNo();
         });
 
         // Remove row
-        $("#productCatalogsTable").on("click", ".btn-remove", function() {
+        $("#applicationPhotosTable").on("click", ".btn-remove", function() {
+            $(this).closest("tr").remove();
+            siNo();
+        });
+
+        $("#applicationVideosTable").on("click", ".btn-plus", function() {
+            let html = `
+    <tr>
+      <td><input type="text" name="applicationVideoTitle[]" class="form-control" placeholder="{{ __('Video Title') }}"></td>
+      <td><input type="text" name="applicationVideoUrl[]" class="form-control" placeholder="{{ __('Video URL') }}"></td>
+      <td><a class="btn btn-danger btn-sm btn-remove"><i class="bi bi-basket"></i></a></td>
+    </tr>`;
+            $("#applicationVideosTable tbody").append(html);
+            siNo();
+        });
+
+        // Remove row
+        $("#applicationVideosTable").on("click", ".btn-remove", function() {
             $(this).closest("tr").remove();
             siNo();
         });
@@ -252,8 +331,8 @@
                 const img = document.createElement('img');
                 img.src = URL.createObjectURL(file);
                 img.className = "img-thumbnail";
-                img.style.maxWidth = "200px";
-                img.style.maxHeight = "200px";
+                img.style.maxWidth = "300px";
+                img.style.maxHeight = "300px";
                 img.style.objectFit = "cover";
 
                 const removeBtn = document.createElement('button');

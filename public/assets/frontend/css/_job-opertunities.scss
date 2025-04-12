@@ -1,0 +1,538 @@
+.job-opportunities-area {
+    padding: 70px 0 140px 0;
+
+    @include respond-below(xl) {
+        padding: 0px 0 120px 0;
+    }
+
+    @include respond-below(lg) {
+        padding: 0px 0 70px 0;
+    }
+
+    @include respond-below(md) {
+        padding: 0px 0 60px 0;
+    }
+
+    @include respond-below(sm) {
+        padding: 0px 0 40px 0;
+    }
+
+    .opportunities-box {
+        background: #fff;
+
+        .job-opportunities-content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            padding: 0 130px;
+
+            @include respond-below(xl) {
+                padding: 0 80px;
+            }
+
+            @include respond-below(lg) {
+                padding: 0 60px;
+            }
+
+            @include respond-below(md) {
+                padding: 0 30px;
+            }
+
+            @include respond-below(sm) {
+                padding: 30px 20px;
+            }
+
+            h2 {
+                margin: 0 0 30px 0;
+                font-size: 5rem !important;
+                line-height: 80px;
+
+                @include respond-below(xl) {
+                    font-size: 4rem !important;
+                    line-height: 60px;
+                }
+
+                @include respond-below(lg) {
+                    font-size: 3.5rem !important;
+                    line-height: 50px;
+                }
+
+                @include respond-below(md) {
+                    font-size: 3rem !important;
+                    line-height: 43px;
+                    margin: 0 0 20px 0;
+                }
+
+                @include respond-below(sm) {
+                    font-size: 2rem !important;
+                    margin: 0 0 10px 0;
+                }
+            }
+
+            p {
+                color: #333;
+                line-height: 28px;
+                margin: 0 0 40px 0;
+
+                @include respond-below(md) {
+                    margin: 0 0 30px 0;
+                }
+            }
+        }
+
+        .job-opportunities-pic {
+            img {
+                width: 100%;
+
+                @include respond-below(xl) {
+                    height: 450px;
+                    object-fit: cover;
+                }
+
+                @include respond-below(sm) {
+                    height: auto;
+                }
+            }
+        }
+    }
+
+}
+
+// ================================================ job-strip-area start  ===================================================
+.job-strip-area {
+    .job-strip-box {
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 80px 0;
+
+        @include respond-below(lg) {
+            padding: 50px 0;
+        }
+
+        @include respond-below(md) {
+            padding: 50px 0;
+        }
+
+        @include respond-below(sm) {
+            padding: 40px 0;
+        }
+
+        h5 {
+            line-height: 28px;
+            color: #333;
+        }
+    }
+}
+
+// ================================================ job-strip-area end  =====================================================
+
+
+
+// ================================================ vacancies-area Start  ===================================================
+.vacancies-area {
+    padding: 100px 0 80px 0;
+
+    @include respond-below(xl) {
+        padding: 80px 0 50px 0;
+    }
+
+    @include respond-below(lg) {
+        padding: 60px 0 40px 0;
+    }
+
+    @include respond-below(md) {
+        padding: 50px 0 30px 0;
+    }
+
+    @include respond-below(sm) {
+        padding: 40px 0 30px 0;
+    }
+
+    .vacancies-head {
+        text-align: center;
+
+        h2 {
+            color: #fff;
+            margin: 0 0 30px 0;
+        }
+
+        h6 {
+            color: #fff;
+            font-weight: 300;
+            margin: 0 0 30px 0;
+
+            @include respond-below(lg) {
+                margin: 0 0 20px 0;
+            }
+        }
+    }
+
+
+    .vacancies-table {
+
+        .responsive-table {
+            width: 100%;
+            margin-bottom: 1.5em;
+            border-spacing: 0;
+        }
+
+        @media (min-width: 48em) {
+            .responsive-table {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (min-width: 62em) {
+            .responsive-table {
+                font-size: 1em;
+            }
+        }
+
+        .responsive-table thead {
+            position: absolute;
+            clip: rect(1px 1px 1px 1px);
+            /* IE6, IE7 */
+            padding: 0;
+            border: 0;
+            height: 1px;
+            width: 1px;
+            overflow: hidden;
+        }
+
+        @media (min-width: 48em) {
+            .responsive-table thead {
+                position: relative;
+                clip: auto;
+                height: auto;
+                width: auto;
+                overflow: auto;
+            }
+        }
+
+        .responsive-table thead th {
+            background-color: #fff;
+            border: 1px solid #fff;
+            font-weight: normal;
+            text-align: center;
+            color: #000;
+            font-size: 22px;
+            font-weight: 500;
+            text-transform: uppercase;
+
+            @include respond-below(lg) {
+                font-size: 18px;
+            }
+
+            @include respond-below(md) {
+                font-size: 16px;
+            }
+        }
+
+        .responsive-table thead th:first-of-type {
+            // text-align: left;
+        }
+
+        .responsive-table tbody,
+        .responsive-table tr,
+        .responsive-table th,
+        .responsive-table td {
+            display: block;
+            padding: 0;
+            text-align: left;
+            white-space: normal;
+        }
+
+        @media (min-width: 48em) {
+            .responsive-table tr {
+                display: table-row;
+            }
+        }
+
+        .responsive-table th,
+        .responsive-table td {
+            padding: 0.5em;
+            vertical-align: middle;
+        }
+
+        @media (min-width: 30em) {
+
+            .responsive-table th,
+            .responsive-table td {
+                padding: 0.75em 0.5em;
+            }
+        }
+
+        @media (min-width: 48em) {
+
+            .responsive-table th,
+            .responsive-table td {
+                display: table-cell;
+                padding: 0.5em;
+            }
+        }
+
+        @media (min-width: 62em) {
+
+            .responsive-table th,
+            .responsive-table td {
+                padding: 0.75em 0.5em;
+            }
+        }
+
+        @media (min-width: 75em) {
+
+            .responsive-table th,
+            .responsive-table td {
+                padding: 0.75em;
+            }
+        }
+
+        .responsive-table caption {
+            margin-bottom: 1em;
+            font-size: 1em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        @media (min-width: 48em) {
+            .responsive-table caption {
+                font-size: 1.5em;
+            }
+        }
+
+        .responsive-table tfoot {
+            font-size: 0.8em;
+            font-style: italic;
+        }
+
+        @media (min-width: 62em) {
+            .responsive-table tfoot {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (min-width: 48em) {
+            .responsive-table tbody {
+                display: table-row-group;
+            }
+        }
+
+        .responsive-table tbody tr {
+            margin-bottom: 1em;
+        }
+
+        @media (min-width: 48em) {
+            .responsive-table tbody tr {
+                display: table-row;
+                border-width: 1px;
+            }
+        }
+
+        .responsive-table tbody tr:last-of-type {
+            margin-bottom: 0;
+        }
+
+        @media (min-width: 48em) {
+            .responsive-table tbody tr:nth-of-type(even) {
+                background-color: rgba(0, 0, 0, 0.12);
+            }
+        }
+
+        .responsive-table tbody th[scope=row] {
+            background-color: #fff;
+            color: #333;
+            font-weight: 500;
+        }
+
+        @media (min-width: 30em) {
+            .responsive-table tbody th[scope=row] {
+                border-left: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+            }
+        }
+
+        @media (min-width: 48em) {
+            .responsive-table tbody th[scope=row] {
+                background-color: transparent;
+                color: #fff;
+                text-align: center;
+                font-weight: 300;
+                padding: 18px 10px;
+            }
+        }
+
+        .responsive-table tbody td {
+            text-align: right;
+            color: #fff;
+            border: 1px solid #a7a7a7;
+        }
+
+        @media (min-width: 48em) {
+            .responsive-table tbody td {
+                // border-left: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+                text-align: center;
+                color: #fff;
+                font-weight: 300;
+            }
+        }
+
+        @media (min-width: 48em) {
+            .responsive-table tbody td:last-of-type {
+                border-right: 1px solid #fff;
+            }
+        }
+
+        .responsive-table tbody td[data-type=currency] {
+            text-align: center;
+        }
+
+        .responsive-table tbody td[data-title]:before {
+            content: attr(data-title);
+            float: left;
+            font-size: 15px;
+            color: #fff;
+        }
+
+        @media (min-width: 30em) {
+            .responsive-table tbody td[data-title]:before {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (min-width: 48em) {
+            .responsive-table tbody td[data-title]:before {
+                content: none;
+            }
+        }
+    }
+}
+
+// ================================================ vacancies-area end  =====================================================
+
+
+// ================================================ career-form-area start  ===================================================
+.career-form-area {
+    padding: 30px 0 120px 0;
+
+    @include respond-below(xl) {
+        padding: 30px 0 100px 0;
+    }
+
+    @include respond-below(lg) {
+        padding: 30px 0 90px 0;
+    }
+
+    @include respond-below(md) {
+        padding: 30px 0 80px 0;
+    }
+
+
+    .career-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            font-size: 5rem !important;
+            font-weight: 400;
+            margin: 0 0 35px 0;
+
+            @include respond-below(lg) {
+                font-size: 3.5rem !important;
+                margin: 0 0 25px 0;
+            }
+
+            @include respond-below(md) {
+                font-size: 3rem !important;
+                margin: 0 0 20px 0;
+            }
+
+            @include respond-below(sm) {
+                font-size: 2.5rem !important;
+                margin: 0 0 15px 0;
+            }
+
+        }
+
+        p {
+            text-align: center;
+            line-height: 28px;
+            color: #fff;
+            margin: 0 0 50px 0;
+            font-weight: 300;
+        }
+
+        .career-form-box {
+            .form-bg {
+
+                .form-container {
+                    font-size: 0;
+                    overflow: hidden;
+
+                    .form-group {
+                        .form-control {
+                            margin-bottom: 25px;
+                            border-radius: 0;
+                            background: none;
+                            border-bottom: 1px solid #ccc;
+                            border-top: none;
+                            border-right: none;
+                            border-left: none;
+                            padding: 0 0 10px 5px;
+                            color: #dadada;
+
+                            &::placeholder {
+                                color: #bcbbbb;
+                            }
+
+                            &:focus {
+                                box-shadow: none !important;
+                            }
+
+                            option {
+                                color: #333;
+                                font-size: 14px;
+                            }
+                        }
+
+                        i {
+                            position: absolute;
+                            left: 25px;
+                            color: #c5c3c3;
+                        }
+
+                        &.city {
+                            position: relative;
+                            bottom: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ================================================ career-form-area end  =====================================================
+
+
+@media only screen and (min-width : 1200px) and (max-width : 1279px) {
+    .job-opportunities-area {
+        padding: 0px 0 80px 0;
+    }
+
+    .job-strip-area .job-strip-box {
+        padding: 60px 0;
+    }
+
+    .career-form-area .career-form h2 {
+        font-size: 4rem !important;
+        margin: 0 0 35px 0;
+    }
+}

@@ -1,0 +1,62 @@
+.certification-area {
+    padding: 100px 0 100px 0;
+
+    @include respond-below(lg) {
+        padding: 40px 0 40px 0;
+    }
+
+    @include respond-below(md) {
+        padding: 20px 0 10px 0;
+    }
+
+    .certification-title {
+        text-align: center;
+        margin-bottom: 40px;
+
+        .section-title {
+            text-align: center;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        p {
+            color: #fff;
+        }
+    }
+
+    .certification-logos {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+
+
+        .certification-logo-box {
+            img {
+                width: 100%;
+                background: #fff;
+            }
+
+            p {
+                color: #fff;
+                text-align: center;
+                margin: 10px 0 0 0;
+            }
+        }
+    }
+
+    .certificate-pics {
+        margin: 50px 0 40px 0;
+
+        .certificate-pic {
+            @include respond-below(md) {
+                margin: 0 0 30px 0;
+            }
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
